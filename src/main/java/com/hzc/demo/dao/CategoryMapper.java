@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface CategoryMapper {
@@ -13,7 +14,7 @@ public interface CategoryMapper {
     int deleteById(Integer id);
 
     @Insert("insert into goods_category (category_level, parent_id, category_name) values (#{categoryLevel},#{parentId},#{categoryName})")
-    int insert(GoodsCategory record);
+    int insert(GoodsCategory category);
 
     @Select("select * from goods_category where category_id=#{id}")
     GoodsCategory selectById(Integer id);
@@ -27,16 +28,20 @@ public interface CategoryMapper {
             "                    category_level=#{categoryLevel},\n" +
             "                </if>\n" +
             "                <if test=\"parentId!=null and parentId!=''\">\n" +
-            "                    parent_id=#{parentId},\n" +
+            "                    and parent_id=#{parentId},\n" +
             "                </if>\n" +
             "                <if test=\"categoryName!=null and categoryName!=''\">\n" +
-            "                    category_name=#{categoryName}\n" +
+            "                    and category_name=#{categoryName}\n" +
             "                </if>\n" +
             "            </set>\n" +
             "            where category_id=#{categoryId} " +
             "</script>")
-    int updateById(GoodsCategory record);
+    int updateById(Map<String,Object> map);
 
-    List<GoodsCategory> findGoodsCategoryList();
+    @Select("select * from goods_category where parent_id=#{parentId}")
+    List<GoodsCategory> selectByParentId(Integer parentId);
+
+    @Select("select * from goods_category where category_level=#{level}")
+    List<GoodsCategory> selectByLevel(Integer level);
 
 }
