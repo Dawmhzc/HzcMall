@@ -37,6 +37,11 @@ public class AdminGoodsController {
         return "showGoods";
     }
 
+    @GetMapping("/goAddGoods")
+    public String goAddGoods(){
+        return "addGoods";
+    }
+
     @PostMapping("/saveGoods")
     @ResponseBody
     public Result saveGoods(@RequestParam("goodsName") String goodsName,
@@ -57,8 +62,7 @@ public class AdminGoodsController {
         goods.setSellStatus(0);
         goods.setSellingPrice(sellingPrice);
         goods.setCreateUser(createUser);
-        return goodsService.saveGoods(goods)>0 ? new Result(null,0,"插入成功") :
-                new Result(null,1,"插入失败");
+        return goodsService.saveGoods(goods);
     }
 
     @PostMapping("/updateGoods")
@@ -72,30 +76,26 @@ public class AdminGoodsController {
         map.put("goodsName",goodsName);
         map.put("goodsCategoryId",goodsCategoryId);
         map.put("createUser",createUser);
-        return goodsService.editGoods(map)>0 ? new Result(null,0,"修改成功") :
-                new Result(null,1,"修改失败");
+        return goodsService.editGoods(map);
     }
 
     @PostMapping("/delGoods")
     @ResponseBody
-    public Result delGoods(@RequestParam("goodsId") Integer goodsId){
-        return goodsService.delGoods(goodsId)>0 ? new Result(null,0,"删除成功") :
-                new Result(null,1,"删除失败");
+    public Result delGoods(IdCollection idCollection){
+        return goodsService.delGoodsList(idCollection.getIds());
     }
 
     @PostMapping("/downGoods")
     @ResponseBody
     public Result downGoods(IdCollection idCollection){
         System.out.println(idCollection.getIds());
-        return goodsService.downGoods(idCollection.getIds(),1)>0 ?
-                new Result(null,0,"下架成功") : new Result(null,1,"下架失败");
+        return goodsService.downGoods(idCollection.getIds(),1);
     }
 
     @PostMapping("/upGoods")
     @ResponseBody
     public Result upGoods(IdCollection idCollection){
         System.out.println(idCollection.getIds());
-        return goodsService.downGoods(idCollection.getIds(),0)>0 ?
-                new Result(null,0,"上架成功") : new Result(null,1,"上架失败");
+        return goodsService.downGoods(idCollection.getIds(),0);
     }
 }

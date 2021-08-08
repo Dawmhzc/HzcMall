@@ -4,6 +4,7 @@ import com.hzc.demo.commom.Result;
 import com.hzc.demo.pojo.GoodsCategory;
 import com.hzc.demo.service.CategoryService;
 import com.hzc.demo.service.GoodsService;
+import com.hzc.demo.util.IdCollection;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,10 +24,10 @@ public class CategoryController {
     CategoryService categoryService;
 
     /*
-    * @RequestBody只适用于获取请求主体中的参数不能获取url上的参数
-    * @RequestParam 底层是通过request.getParameter方式获得参数的，换句话说，@RequestParam 和request.getParameter是同一回事
-    * @RequestBody接受的是一个json对象的字符串，而不是Json对象
-    * */
+     * @RequestBody只适用于获取请求主体中的参数不能获取url上的参数
+     * @RequestParam 底层是通过request.getParameter方式获得参数的，换句话说，@RequestParam 和request.getParameter是同一回事
+     * @RequestBody接受的是一个json对象的字符串，而不是Json对象
+     * */
     @PostMapping("/saveCategory")
     @ResponseBody
     public Result saveCategory(@RequestParam("categoryLevel") Integer categoryLevel,
@@ -37,15 +38,13 @@ public class CategoryController {
         goodsCategory.setCategoryLevel(categoryLevel);
         goodsCategory.setParentId(parentId);
         System.out.println(goodsCategory);
-        return categoryService.saveCategory(goodsCategory)>0 ? new Result(goodsCategory,0,null) :
-                new Result(null,1,"插入数据失败");
+        return categoryService.saveCategory(goodsCategory);
     }
 
-    @GetMapping("/delCategory")
+    @PostMapping("/delCategory")
     @ResponseBody
-    public Result delCategory(@RequestParam("categoryId") Integer categoryId){
-        return categoryService.delCateGory(categoryId)>0 ? new Result(null,0,"删除成功") :
-                new Result(null,1,"删除失败");
+    public Result delCategory(IdCollection idCollection){
+        return categoryService.delCateGory(idCollection.getIds());
     }
 
     @PostMapping("/updateCategory")
@@ -57,8 +56,12 @@ public class CategoryController {
         map.put("categoryLevel",categoryLevel);
         map.put("categoryId",categoryId);
         map.put("categoryName",categoryName);
-        return categoryService.updateCateGory(map)>0 ? new Result(null,0,"修改成功") :
-                new Result(null,1,"修改失败");
+        return categoryService.updateCateGory(map);
+    }
+
+    @GetMapping("/goAddCategory")
+    public String goAddCategory(){
+        return "addCategory";
     }
 
     @GetMapping("/getAllCategory/{categoryLevel}")
@@ -71,8 +74,23 @@ public class CategoryController {
     //@ResponseBody
     public String getCurrentCategory(Model model, @PathVariable("categoryId") Integer categoryId){
         List<GoodsCategory> goodsCategories=categoryService.getCurrentCategories(categoryId);
-        model.addAttribute("categories",goodsCategories);
-        //return new Result(goodsCategories,0,null);
+        GoodsCategory parentCategory=categoryService.getCategoryById(categoryId);
+        if (goodsCategories.size()==0) model.addAttribute("thirdCategory",parentCategory);
+        else {
+            model.addAttribute("categories",goodsCategories);
+            if (parentCategory.getCategoryLevel()==2)  {
+                model.addAttribute("secondCategory",parentCategory);
+                model.addAttribute("firstCategory",categoryService.getCategoryById(parentCategory.getParentId()));
+            }
+            if (parentCategory.getCategoryLevel()==1)  model.addAttribute("firstCategory",parentCategory);
+            //return new Result(goodsCategories,0,null);
+        }
         return "category";
+    }
+
+    @GetMapping("/getDetailCategory/{categoryId}")
+    public String getDetailCategory(Model model, @PathVariable("categoryId") Integer categoryId){
+        model.addAttribute("detailCategory",categoryService.getCategoryById(categoryId));
+        return "showCategory";
     }
 }

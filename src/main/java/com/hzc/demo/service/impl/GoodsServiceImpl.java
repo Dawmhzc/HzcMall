@@ -1,5 +1,6 @@
 package com.hzc.demo.service.impl;
 
+import com.hzc.demo.commom.Result;
 import com.hzc.demo.dao.CategoryMapper;
 import com.hzc.demo.dao.GoodsMapper;
 import com.hzc.demo.pojo.Goods;
@@ -12,10 +13,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /*
 * 除了delGoodsList、downGoods方法其他增删改方法的返回结果1代表成功，0代表失败
@@ -47,58 +45,65 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public int saveGoods(Goods goods) {
+    public Result saveGoods(Goods goods) {
         if (goods.hasIllegalField() || goods.hasIllegalMoney()) {
             System.out.println("存在非法字段");
-            return 0;
+            return new Result(null,1,"传递参数不合法");
+            //return 0;
         }
         if (goodsMapper.selectByCategoryIdAndNameAndUser(goods.getGoodsName(),goods.getGoodsCategoryId(),goods.getCreateUser())!=null) {
             System.out.println("数据重复");
-            return 0;
+            return new Result(null,1,"数据重复");
+            //return 0;
         }
-        return goodsMapper.insert(goods)>0 ? 1:0;
+        goods.setCreateTime(new Date());
+        return goodsMapper.insert(goods)>0 ?
+                new Result(null,0,"插入成功"):new Result(null,1,"插入失败");
     }
 
     //暂时未确定是否要使用批量插入数据
     @Override
-    public int saveGoodsList(List<Goods> goodsList) {
+    public Result saveGoodsList(List<Goods> goodsList) {
         if (!CollectionUtils.isEmpty(goodsList)) {
             for (Goods goods:goodsList) {
                 if (goodsMapper.selectByCategoryIdAndNameAndUser(goods.getGoodsName(),goods.getGoodsCategoryId(),goods.getCreateUser())!=null) {
                     System.out.println("存在数据重复");
-                    return 0;
+                    return new Result(null,1,"数据重复");
                 }
+                goods.setCreateTime(new Date());
             }
-            return goodsMapper.batchInsert(goodsList)>0 ? 1:0;
+            return goodsMapper.batchInsert(goodsList)>0 ?
+                    new Result(null,0,"插入成功"):new Result(null,1,"插入失败");
         }
-        return 0;
+        return new Result(null,1,"参数不能为空");
     }
 
     @Override
-    public int editGoods(Map<String,Object> map) {
+    public Result editGoods(Map<String,Object> map) {
         Integer goodsId= (Integer) map.get("goodsId");
         String goodsName = (String) map.get("goodsName");
         Integer goodsCategoryId= (Integer) map.get("goodsCategoryId");
         Integer createUser= (Integer) map.get("createUser");
         if (!StringUtils.hasLength(goodsName) || goodsCategoryId.equals(0) || goodsId.equals(0) || createUser.equals(0)){
-                System.out.println("传入参数不合法");
-                return 0;
+            System.out.println("传入参数不合法");
+            return new Result(null,1,"传入参数不合法");
         }
         //Goods record=goodsMapper.selectById(goodsId);
         if (goodsMapper.selectById(goodsId)==null) {
             System.out.println("数据不存在");
-            return 0;
+            return new Result(null,1,"数据不存在");
         }
         if (goodsMapper.selectByCategoryIdAndNameAndUser(goodsName,goodsCategoryId,createUser)!=null){
             System.out.println("修改后数据重复");
-            return 0;
+            return new Result(null,1,"修改后数据重复");
         }
-        return goodsMapper.updateById(map)>0 ? 1:0;
+        return goodsMapper.updateById(map)>0 ?
+                new Result(null,0,"修改成功"):new Result(null,1,"修改失败");
     }
 
     //改变商品上架还是下架，返回数字代表集合中有几条记录不存在，后期写事务考虑全部回滚
     @Override
-    public int downGoods(List<Integer> goodsId_list, Integer sellStatus) {
+    public Result downGoods(List<Integer> goodsId_list, Integer sellStatus) {
         Map<String,Object> map=new HashMap<>();
         int row=0;
         if (!CollectionUtils.isEmpty(goodsId_list)) {
@@ -107,45 +112,48 @@ public class GoodsServiceImpl implements GoodsService {
                     map.clear();
                     map.put("goodsId",id);
                     map.put("sellStatus",sellStatus);
-                    row+=goodsMapper.updateById(map);
+                    row+=goodsMapper.updateSellStatus(map);
                 }
             }
-            return goodsId_list.size()-row;
+            return row>0 ? new Result(null,0,"成功"):
+                    new Result(null,1,"失败");
         }
         System.out.println("集合中没有参数");
-        return goodsId_list.size();
+        return new Result(null,1,"传递参数不能为空");
     }
 
     //根据商品id删除商品
     @Override
-    public int delGoods(Integer goodsId) {
+    public Result delGoods(Integer goodsId) {
         if (goodsId == null) {
             System.out.println("传入参数不合法");
-            return 0;
+            return new Result(null,1,"传入参数不合法");
         }
         if (goodsMapper.selectById(goodsId)==null) {
             System.out.println("数据不存在");
-            return 0;
+            return new Result(null,1,"数据不存在");
         }
-        return goodsMapper.deleteById(goodsId)>0 ? 1:0;
+        return goodsMapper.deleteById(goodsId)>0 ?
+                new Result(null,0,"删除成功"):new Result(null,1,"删除失败");
     }
 
     //返回数字代表集合中有几条记录不存在，后期写事务考虑全部回滚
     @Override
-    public int delGoodsList(List<Integer> goodsId_list) {
+    public Result delGoodsList(List<Integer> goodsId_list) {
         int row=0;
         if (goodsId_list.size()==0) {
             System.out.println("传入参数不合法");
-            return 0;
+            return new Result(null,1,"传入参数不合法");
         }
         for (Integer goodsId:goodsId_list){
             if (goodsId==null || goodsId==0) {
                 System.out.println("传入参数不合法");
-                return 0;
+                return new Result(null,1,"传入参数不合法");
             }
             if (this.getGoodsById(goodsId)!=null)  row+=goodsMapper.deleteById(goodsId);
         }
-        return goodsId_list.size()-row;
+        return row>0 ?
+                new Result(null,0,"删除成功"):new Result(null,1,"删除失败");
     }
 
     //需要传入商品关键字keyword、选择的商品种类id(可选)

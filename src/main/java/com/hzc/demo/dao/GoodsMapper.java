@@ -32,7 +32,8 @@ public interface GoodsMapper {
             "</script>")
     int batchInsert(List<Goods> goodsList);
 
-    //int updateNum(Goods record);
+    @Update("update goods set sell_status=#{sellStatus} where goods_id=#{goodsId}")
+    int updateSellStatus(Map<String,Object> map);
     //int batchUpdateNum(List<Integer> nums);
 
     @Update("<script> update goods\n" +

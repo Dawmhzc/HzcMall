@@ -28,10 +28,10 @@ public interface CategoryMapper {
             "                    category_level=#{categoryLevel},\n" +
             "                </if>\n" +
             "                <if test=\"parentId!=null and parentId!=''\">\n" +
-            "                    and parent_id=#{parentId},\n" +
+            "                    parent_id=#{parentId},\n" +
             "                </if>\n" +
             "                <if test=\"categoryName!=null and categoryName!=''\">\n" +
-            "                    and category_name=#{categoryName}\n" +
+            "                    category_name=#{categoryName}\n" +
             "                </if>\n" +
             "            </set>\n" +
             "            where category_id=#{categoryId} " +

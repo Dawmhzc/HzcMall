@@ -1,5 +1,6 @@
 package com.hzc.demo.service.impl;
 
+import com.hzc.demo.commom.Result;
 import com.hzc.demo.dao.CategoryMapper;
 import com.hzc.demo.dao.GoodsMapper;
 import com.hzc.demo.pojo.GoodsCategory;
@@ -7,6 +8,7 @@ import com.hzc.demo.service.CategoryService;
 import com.hzc.demo.util.CategoryMap;
 import com.hzc.demo.util.CategoryMapforMap;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -25,25 +27,28 @@ public class CategoryServiceImpl implements CategoryService {
     GoodsMapper goodsMapper;
 
     @Override
-    public int saveCategory(GoodsCategory goodsCategory) {
+    public Result saveCategory(GoodsCategory goodsCategory) {
         if (goodsCategory.hasIllegalField()) {
             System.out.println("存在非法字段");
-            return 0;
+            return new Result(null,1,"存在非法字段");
         }
         if (goodsCategory.getParentId()!=null && categoryMapper.selectById(goodsCategory.getParentId())==null) {
             System.out.println("父节点不存在，不能添加");
+            return new Result(null,1,"父节点不存在，不能添加");
         }
         if (categoryMapper.selectByLevelAndName(goodsCategory.getCategoryLevel(),goodsCategory.getCategoryName())!=null) {
             System.out.println("数据重复");
+            return new Result(null,1,"数据重复");
         }
-        return categoryMapper.insert(goodsCategory)>0 ? 1:0;
+        return categoryMapper.insert(goodsCategory)>0 ?
+                new Result(null,0,"删除成功"):new Result(null,1,"删除失败");
     }
 
     @Override
-    public int updateCateGory(Map<String,Object> map) {
+    public Result updateCateGory(Map<String,Object> map) {
         if (!map.containsKey("categoryLevel") || !map.containsKey("categoryName") || !map.containsKey("categoryId")) {
             System.out.println("传入参数不合法");
-            return 0;
+            return new Result(null,1,"传入参数不合法");
         }
         Integer categoryLevel= (Integer) map.get("categoryLevel");
         String categoryName= (String) map.get("categoryName");
@@ -51,35 +56,40 @@ public class CategoryServiceImpl implements CategoryService {
         GoodsCategory record=categoryMapper.selectById(categoryId);
         if (record==null) {
             System.out.println("数据不存在");
-            return 0;
+            return new Result(null,1,"数据不存在");
         }
         if (categoryMapper.selectByLevelAndName(categoryLevel,categoryName)!=null) {
             System.out.println("修改后数据重复");
-            return 0;
+            return new Result(null,1,"修改后数据重复");
         }
-        return categoryMapper.updateById(map)>0 ? 1:0;
+        return categoryMapper.updateById(map)>0 ?
+                new Result(null,0,"修改成功"):new Result(null,1,"修改失败");
     }
 
     @Override
-    public int delCateGory(Integer id) {
-        if (id==null) {
+    public Result delCateGory(List<Integer> ids) {
+        if (CollectionUtils.isEmpty(ids)) {
             System.out.println("参数不合法");
-            return 0;
+            return new Result(null,1,"不能传递空参");
         }
-        GoodsCategory goodsCategory=categoryMapper.selectById(id);
-        if (goodsCategory==null) {
-            System.out.println("数据不存在");
-            return 0;
-        } else if (goodsMapper.selectGoodsByCategoryId(id)!=0) {
-            System.out.println("该种类的商品存在无法删除");
-            return 0;
-        } else {
-            if (categoryMapper.selectByParentId(id).size()!=0) {
-                System.out.println("存在下层分类不能删除");
-                return 0;
+        int row=0;
+        for (Integer id:ids){
+            GoodsCategory goodsCategory=categoryMapper.selectById(id);
+            if (goodsCategory==null) {
+                System.out.println("数据不存在");
+                return new Result(null,1,"数据不存在");
+            } else if (goodsMapper.selectGoodsByCategoryId(id)!=0) {
+                System.out.println("该种类的商品存在无法删除");
+                return new Result(null,1,"该种类的商品存在无法删除");
+            } else {
+                if (categoryMapper.selectByParentId(id).size()!=0) {
+                    System.out.println("存在下层分类不能删除");
+                    return new Result(null,1,"存在下层分类不能删除");
+                }
+                row+=categoryMapper.deleteById(id);
             }
-            return categoryMapper.deleteById(id)>0 ? 1:0;
         }
+        return row>0?new Result(null,0,"删除成功"):new Result(null,1,"删除失败");
     }
 
     //获取所有商品种类
@@ -154,6 +164,7 @@ public class CategoryServiceImpl implements CategoryService {
         }
     }
 
+    //根据种类名字和等级获取当前商品种类
     @Override
     public GoodsCategory getCategoryByLevelAndName(Integer categoryLevel, String categoryName) {
         return categoryMapper.selectByLevelAndName(categoryLevel,categoryName);
@@ -165,9 +176,16 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryMapper.selectByParentId(categoryId);
     }
 
+    //根据等级获取当前种类等级的商品种类集合
     @Override
     public List<GoodsCategory> getCategoriesByLevel(Integer categoryLevel) {
         return categoryMapper.selectByLevel(categoryLevel);
+    }
+
+    //根据种类id获取当前id的种类
+    @Override
+    public GoodsCategory getCategoryById(Integer categoryId) {
+        return categoryMapper.selectById(categoryId);
     }
 
 
