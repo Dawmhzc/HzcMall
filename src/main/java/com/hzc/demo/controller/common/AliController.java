@@ -12,6 +12,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+/**
+ * 支付宝沙箱支付
+ * @author hzc
+ * @date 2021/7/30
+ */
 @RestController
 public class AliController {
     private final String APP_ID = "2021000117696312";
@@ -29,8 +34,8 @@ public class AliController {
     private final String RETURN_URL = "";
 
     /**
-     * 调用阿里支付接口
-     * @param response
+     * 调用ali支付接口
+     * @param response ali支付请求响应
      */
     @RequestMapping("/alipay")
     public void aliPay(HttpServletResponse response) {
@@ -51,6 +56,12 @@ public class AliController {
         }
     }
 
+    /**
+     * 支付后回调方法
+     * @param request  ali成功支付请求
+     * @return 返回网址
+     * @throws Exception
+     */
     @RequestMapping("/returnurl")
     public String returnUrl(HttpServletRequest request) throws Exception {
         Map<String,String> params = new HashMap<String,String>();

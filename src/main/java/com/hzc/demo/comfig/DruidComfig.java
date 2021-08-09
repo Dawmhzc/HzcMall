@@ -7,6 +7,11 @@ import org.springframework.context.annotation.Bean;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * 德鲁伊配置
+ * @author hzc
+ * @date 2021/8/2
+ */
 public class DruidComfig {
     @Bean
     public ServletRegistrationBean<StatViewServlet> statViewServlet() {
