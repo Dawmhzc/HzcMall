@@ -5,7 +5,6 @@ import com.hzc.demo.dao.UserMapper;
 import com.hzc.demo.pojo.User;
 import com.hzc.demo.pojo.UserDto;
 import com.hzc.demo.service.UserService;
-import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -28,7 +27,7 @@ public class UserServiceImpl implements UserService {
     public Result addUser(UserDto userDto) {
         if (userDto == null || userDto.getUserName().isEmpty() || userDto.getUserPwd().isEmpty())
             return Result.fail(INVALID_PARAMS);
-        if (userDto.getRight() < 1 || userDto.getRight()>3)
+        if (userDto.getRightId() < 1 || userDto.getUserId()>3)
             return Result.fail(RIGHT_NOTEXIT);
         if (userMapper.checkName(userDto.getUserName()) != 0) return Result.fail(USER_NAMEEXIT);
         if (userMapper.checkMobile(userDto.getUserMobile()) != 0) return Result.fail(USER_MOBILEEXIT);
@@ -39,7 +38,7 @@ public class UserServiceImpl implements UserService {
         user.setUserMobile(userDto.getUserMobile());
         user.setUserEmail(userDto.getUserEmail());
         userMapper.addUser(user);
-        userMapper.addUserRight(ID_USER,userDto.getRight());
+        userMapper.addUserRight(ID_USER,userDto.getRightId());
         ID_USER++;
         return Result.OK();
     }
@@ -78,8 +77,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public Result updateUserRight(UserDto userDto) {
         if (userDto == null) return Result.fail(INVALID_PARAMS);
-        if (userDto.getRight() < 1 || userDto.getRight() > 3) return Result.fail(RIGHT_NOTEXIT);
-        if (userMapper.updateUserRight(userDto.getUserId(),userDto.getRight()) == 0) return Result.fail(DATE_NOEXIT);
+        if (userDto.getUserId()< 1 || userDto.getUserId() > 3) return Result.fail(RIGHT_NOTEXIT);
+        if (userMapper.updateUserRight(userDto.getUserId(),userDto.getRightId()) == 0) return Result.fail(DATE_NOEXIT);
         return Result.OK();
     }
 
