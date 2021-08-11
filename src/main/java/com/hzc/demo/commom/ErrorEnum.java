@@ -12,7 +12,10 @@ public enum ErrorEnum {
     RIGHT_NOTEXIT(3,"错误权限码"),
     RIGHT_NOTENJOIN(4,"权限不足"),
     USER_NAMEEXIT(5,"用户名已存在"),
-    USER_MOBILEEXIT(6,"手机已绑定账号");
+    USER_MOBILEEXIT(6,"手机已绑定账号"),
+    ORDER_ERRER(7,"错误的订单信息"),
+    ERROR_STATUS(8,"错误的订单状态"),
+    ORRERID_NOTINPUT(9,"没有输入订单号");
 
 
 

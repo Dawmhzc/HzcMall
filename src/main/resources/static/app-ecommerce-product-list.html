@@ -19,6 +19,7 @@
         <link href="assets/css/icons.css" rel="stylesheet" type="text/css" />
         <link href="assets/css/metismenu.min.css" rel="stylesheet" type="text/css" />
         <link href="assets/css/style.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="modalBox.css">
 
     </head>
 
@@ -178,24 +179,18 @@
 
                         <li class="menu-title">Main</li>
 
-                        <li>
-                            <a href="javascript: void(0);"><i class="mdi mdi-monitor"></i><span>Dashboards</span><span class="badge badge-danger badge-pill float-right">9+</span></a>
-                            <ul class="nav-second-level" aria-expanded="false">
-                                <li><a href="index-3.html">Dashboard 3</a></li>
-                            </ul>
-                        </li>
+
 
                         <li>
-                            <a href="javascript: void(0);"><i class="mdi mdi-apps"></i><span>App</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+                            
                             <ul class="nav-second-level" aria-expanded="false">
                                 <li>
                                     <a href="javascript: void(0);">ECommerce <span class="menu-arrow left-has-menu"><i class="mdi mdi-chevron-right"></i></span></a>
                                     <ul class="nav-second-level" aria-expanded="false">
                                         <li><a href="app-ecommerce-product.html">Product</a></li>
                                         <li><a href="app-ecommerce-product-list.html">Product List</a></li>
-                                        <li><a href="app-ecommerce-product-detail.html">Product Detail</a></li>
-                                        <li><a href="app-ecommerce-cart.html">Cart</a></li>
                                         <li><a href="app-ecommerce-checkout.html">Checkout</a></li>
+                                        <li><a href="index-3.html">Dashboard 3</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -203,16 +198,7 @@
 
 
 
-                        <li>
-                            <a href="javascript: void(0);"><i class="mdi mdi-lock-outline"></i><span>Authentication</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
-                            <ul class="nav-second-level" aria-expanded="false">
-                                <li><a href="auth-login.html">Login</a></li>
-                                <li><a href="auth-register.html">Register</a></li>
-                                <li><a href="auth-recoverpw.html">Recover Password</a></li>
-                                <li><a href="auth-404.html">Error 404</a></li>
-                                <li><a href="auth-500.html">Error 500</a></li>
-                            </ul>
-                        </li>
+                        
 
                     </ul>
                 </div>
@@ -270,9 +256,31 @@
                                                 </td>
                                                 <td>
                                                     <div class="btn-group">
-                                                        <button type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-edit"></i></button>
-                                                        <button type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-trash-alt"></i></button>
+                                                           <!-- 触发按钮 -->
+                                                           <button id="triggerBtn" type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-edit"></i></button>
+                                                           <button type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-trash-alt"></i></button>
+
+                                                       <!-- 模态框 -->
+                                                          <div id="myModal" class="modal">
+                                                              <div class="modal-content">
+                                                                   <div class="modal-header">
+                                                                       <h2><font color="red">头部</font></h2>
+                                                                      <span id="closeBtn" class="close">×</span>
+                                                                   </div>
+                                                               <div class="modal-body">
+                                                                   <!--添加需要的原件-->
+
+                                                                   <input type="button" value="修改格">
+                                                               </div>
+                                                      <div class="modal-footer">
+                                                           <h3>尾部</h3>
                                                       </div>
+                                                  </div>
+                                              </div>
+                                                        <script type="text/javascript" src="modalBox.js"></script>
+                                                        
+                                                    </div>
+                                                    
                                                 </td>
                                             </tr>
                                             <tr>
@@ -297,9 +305,33 @@
                                                 </td>
                                                 <td>
                                                     <div class="btn-group">
-                                                        <button type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-edit"></i></button>
+                                                        <!-- 触发按钮 -->
+                                                        <button id="triggerBtn1" type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-edit"></i></button>
                                                         <button type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-trash-alt"></i></button>
-                                                    </div>
+
+                                                    <!-- 模态框 -->
+                                                       <div id="myModal" class="modal">
+                                                           <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h2><font color="red">头部</font></h2>
+                                                                   <span id="closeBtn" class="close">×</span>
+                                                                </div>
+                                                            <div class="modal-body">
+                                                                <!--添加需要的原件-->
+
+                                                                <input type="button" value="修改格">
+                                                            </div>
+                                                   <div class="modal-footer">
+                                                        <h3>尾部</h3>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                                     <script type="text/javascript" src="modalBox1.js">
+                                                     $('.modal-open').find('.modal-backdrop').remove();
+                                                    </script>
+                                                     
+                                                     
+                                                 </div>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -326,9 +358,33 @@
                                                 </td>
                                                 <td>
                                                     <div class="btn-group">
-                                                        <button type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-edit"></i></button>
+                                                        <!-- 触发按钮 -->
+                                                        <button id="triggerBtn3" type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-edit"></i></button>
                                                         <button type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-trash-alt"></i></button>
-                                                    </div>
+
+                                                    <!-- 模态框 -->
+                                                       <div id="myModal" class="modal">
+                                                           <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h2><font color="red">头部</font></h2>
+                                                                   <span id="closeBtn" class="close">×</span>
+                                                                </div>
+                                                            <div class="modal-body">
+                                                                <!--添加需要的原件-->
+
+                                                                <input type="button" value="修改格">
+                                                            </div>
+                                                   <div class="modal-footer">
+                                                        <h3>尾部</h3>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                                     <script type="text/javascript" src="modalBox3.js">
+                                                    $('.modal').find('.modal-content').remove();</script>
+                                                     
+                                                     
+                                                 </div>
+                                                    
                                                 </td>
                                             </tr>
                                             <tr>
@@ -352,9 +408,31 @@
                                                 </td>
                                                 <td>
                                                     <div class="btn-group">
-                                                        <button type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-edit"></i></button>
+                                                        <!-- 触发按钮 -->
+                                                        <button id="triggerBtn2" type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-edit"></i></button>
                                                         <button type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-trash-alt"></i></button>
-                                                    </div>
+
+                                                    <!-- 模态框 -->
+                                                       <div id="myModal" class="modal">
+                                                           <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h2><font color="red">头部</font></h2>
+                                                                   <span id="closeBtn" class="close">×</span>
+                                                                </div>
+                                                            <div class="modal-body">
+                                                                <!--添加需要的原件-->
+
+                                                                <input type="button" value="修改格">
+                                                            </div>
+                                                   <div class="modal-footer">
+                                                        <h3>尾部</h3>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                                     <script type="text/javascript" src="modalBox2.js"></script>
+                                                     
+                                                     
+                                                 </div>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -381,9 +459,31 @@
                                                 </td>
                                                 <td>
                                                     <div class="btn-group">
-                                                        <button type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-edit"></i></button>
+                                                        <!-- 触发按钮 -->
+                                                        <button id="triggerBtn13" type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-edit"></i></button>
                                                         <button type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-trash-alt"></i></button>
-                                                    </div>
+
+                                                    <!-- 模态框 -->
+                                                       <div id="myModal" class="modal">
+                                                           <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h2><font color="red">头部</font></h2>
+                                                                   <span id="closeBtn" class="close">×</span>
+                                                                </div>
+                                                            <div class="modal-body">
+                                                                <!--添加需要的原件-->
+
+                                                                <input type="button" value="修改格">
+                                                            </div>
+                                                   <div class="modal-footer">
+                                                        <h3>尾部</h3>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                                     <script type="text/javascript" src="modalBox13.js"></script>
+                                                     
+                                                     
+                                                 </div>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -408,9 +508,31 @@
                                                 </td>
                                                 <td>
                                                     <div class="btn-group">
-                                                        <button type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-edit"></i></button>
+                                                        <!-- 触发按钮 -->
+                                                        <button id="triggerBtn12" type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-edit"></i></button>
                                                         <button type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-trash-alt"></i></button>
-                                                    </div>
+
+                                                    <!-- 模态框 -->
+                                                       <div id="myModal" class="modal">
+                                                           <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h2><font color="red">头部</font></h2>
+                                                                   <span id="closeBtn" class="close">×</span>
+                                                                </div>
+                                                            <div class="modal-body">
+                                                                <!--添加需要的原件-->
+
+                                                                <input type="button" value="修改格">
+                                                            </div>
+                                                   <div class="modal-footer">
+                                                        <h3>尾部</h3>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                                     <script type="text/javascript" src="modalBox12.js"></script>
+                                                     
+                                                     
+                                                 </div>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -437,10 +559,31 @@
                                                 </td>
                                                 <td>
                                                     <div class="btn-group">
-                                                        <button type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-edit"></i></button>
+                                                        <!-- 触发按钮 -->
+                                                        <button id="triggerBtn11" type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-edit"></i></button>
                                                         <button type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-trash-alt"></i></button>
-                                                        </div>
-                                                </td>
+
+                                                    <!-- 模态框 -->
+                                                       <div id="myModal" class="modal">
+                                                           <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h2><font color="red">头部</font></h2>
+                                                                   <span id="closeBtn" class="close">×</span>
+                                                                </div>
+                                                            <div class="modal-body">
+                                                                <!--添加需要的原件-->
+
+                                                                <input type="button" value="修改格">
+                                                            </div>
+                                                   <div class="modal-footer">
+                                                        <h3>尾部</h3>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                                     <script type="text/javascript" src="modalBox11.js"></script>
+                                                     
+                                                     
+                                                 </div>
                                             </tr>
 
                                             <tr>
@@ -467,9 +610,31 @@
                                                 </td>
                                                 <td>
                                                     <div class="btn-group">
-                                                        <button type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-edit"></i></button>
+                                                        <!-- 触发按钮 -->
+                                                        <button id="triggerBtn10" type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-edit"></i></button>
                                                         <button type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-trash-alt"></i></button>
-                                                      </div>
+
+                                                    <!-- 模态框 -->
+                                                       <div id="myModal" class="modal">
+                                                           <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h2><font color="red">头部</font></h2>
+                                                                   <span id="closeBtn" class="close">×</span>
+                                                                </div>
+                                                            <div class="modal-body">
+                                                                <!--添加需要的原件-->
+
+                                                                <input type="button" value="修改格">
+                                                            </div>
+                                                   <div class="modal-footer">
+                                                        <h3>尾部</h3>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                                     <script type="text/javascript" src="modalBox10.js"></script>
+                                                     
+                                                     
+                                                 </div>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -494,9 +659,31 @@
                                                 </td>
                                                 <td>
                                                     <div class="btn-group">
-                                                        <button type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-edit"></i></button>
+                                                        <!-- 触发按钮 -->
+                                                        <button id="triggerBtn4" type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-edit"></i></button>
                                                         <button type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-trash-alt"></i></button>
-                                                    </div>
+
+                                                    <!-- 模态框 -->
+                                                       <div id="myModal" class="modal">
+                                                           <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h2><font color="red">头部</font></h2>
+                                                                   <span id="closeBtn" class="close">×</span>
+                                                                </div>
+                                                            <div class="modal-body">
+                                                                <!--添加需要的原件-->
+
+                                                                <input type="button" value="修改格">
+                                                            </div>
+                                                   <div class="modal-footer">
+                                                        <h3>尾部</h3>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                                     <script type="text/javascript" src="modalBox4.js"></script>
+                                                     
+                                                     
+                                                 </div>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -523,9 +710,31 @@
                                                 </td>
                                                 <td>
                                                     <div class="btn-group">
-                                                        <button type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-edit"></i></button>
+                                                        <!-- 触发按钮 -->
+                                                        <button id="triggerBtn5" type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-edit"></i></button>
                                                         <button type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-trash-alt"></i></button>
-                                                    </div>
+
+                                                    <!-- 模态框 -->
+                                                       <div id="myModal" class="modal">
+                                                           <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h2><font color="red">头部</font></h2>
+                                                                   <span id="closeBtn" class="close">×</span>
+                                                                </div>
+                                                            <div class="modal-body">
+                                                                <!--添加需要的原件-->
+
+                                                                <input type="button" value="修改格">
+                                                            </div>
+                                                   <div class="modal-footer">
+                                                        <h3>尾部</h3>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                                     <script type="text/javascript" src="modalBox5.js"></script>
+                                                     
+                                                     
+                                                 </div>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -549,9 +758,31 @@
                                                 </td>
                                                 <td>
                                                     <div class="btn-group">
-                                                        <button type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-edit"></i></button>
+                                                        <!-- 触发按钮 -->
+                                                        <button id="triggerBtn6" type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-edit"></i></button>
                                                         <button type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-trash-alt"></i></button>
-                                                    </div>
+
+                                                    <!-- 模态框 -->
+                                                       <div id="myModal" class="modal">
+                                                           <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h2><font color="red">头部</font></h2>
+                                                                   <span id="closeBtn" class="close">×</span>
+                                                                </div>
+                                                            <div class="modal-body">
+                                                                <!--添加需要的原件-->
+
+                                                                <input type="button" value="修改格">
+                                                            </div>
+                                                   <div class="modal-footer">
+                                                        <h3>尾部</h3>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                                     <script type="text/javascript" src="modalBox6.js"></script>
+                                                     
+                                                     
+                                                 </div>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -578,9 +809,31 @@
                                                 </td>
                                                 <td>
                                                     <div class="btn-group">
-                                                        <button type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-edit"></i></button>
+                                                        <!-- 触发按钮 -->
+                                                        <button id="triggerBtn7" type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-edit"></i></button>
                                                         <button type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-trash-alt"></i></button>
-                                                    </div>
+
+                                                    <!-- 模态框 -->
+                                                       <div id="myModal" class="modal">
+                                                           <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h2><font color="red">头部</font></h2>
+                                                                   <span id="closeBtn" class="close">×</span>
+                                                                </div>
+                                                            <div class="modal-body">
+                                                                <!--添加需要的原件-->
+
+                                                                <input type="button" value="修改格">
+                                                            </div>
+                                                   <div class="modal-footer">
+                                                        <h3>尾部</h3>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                                     <script type="text/javascript" src="modalBox7.js"></script>
+                                                     
+                                                     
+                                                 </div>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -605,9 +858,31 @@
                                                 </td>
                                                 <td>
                                                     <div class="btn-group">
-                                                        <button type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-edit"></i></button>
+                                                        <!-- 触发按钮 -->
+                                                        <button id="triggerBtn8" type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-edit"></i></button>
                                                         <button type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-trash-alt"></i></button>
-                                                    </div>
+
+                                                    <!-- 模态框 -->
+                                                       <div id="myModal" class="modal">
+                                                           <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h2><font color="red">头部</font></h2>
+                                                                   <span id="closeBtn" class="close">×</span>
+                                                                </div>
+                                                            <div class="modal-body">
+                                                                <!--添加需要的原件-->
+
+                                                                <input type="button" value="修改格">
+                                                            </div>
+                                                   <div class="modal-footer">
+                                                        <h3>尾部</h3>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                                     <script type="text/javascript" src="modalBox8.js"></script>
+                                                     
+                                                     
+                                                 </div>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -634,9 +909,31 @@
                                                 </td>
                                                 <td>
                                                     <div class="btn-group">
-                                                        <button type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-edit"></i></button>
+                                                        <!-- 触发按钮 -->
+                                                        <button id="triggerBtn9" type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-edit"></i></button>
                                                         <button type="button" class="btn btn-outline-secondary btn-sm"><i class="far fa-trash-alt"></i></button>
-                                                        </div>
+
+                                                    <!-- 模态框 -->
+                                                       <div id="myModal" class="modal">
+                                                           <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h2><font color="red">头部</font></h2>
+                                                                   <span id="closeBtn" class="close">×</span>
+                                                                </div>
+                                                            <div class="modal-body">
+                                                                <!--添加需要的原件-->
+
+                                                                <input type="button" value="修改格">
+                                                            </div>
+                                                   <div class="modal-footer">
+                                                        <h3>尾部</h3>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                                     <script type="text/javascript" src="modalBox9.js"></script>
+                                                     
+                                                     
+                                                 </div>
                                                 </td>
                                             </tr>
                                             </tbody>
