@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>商品添加</title>
+    <link href="https://cdn.staticfile.org/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet">
+</head>
+<body>
+<p style="width: auto">商品添加界面</p>
+    <div class="ui form">
+        <div class="fields">
+            <div class="field">
+                <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">商品名字</font></font></label>
+                <input id="goodsName" type="text" placeholder="商品名字">
+            </div>
+            <div class="field">
+                <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">商品种类ID</font></font></label>
+                <input id="goodsCategoryId"type="text" placeholder="商品种类ID">
+            </div>
+        </div>
+        <div class="fields">
+            <div class="field">
+                <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">商品原价</font></font></label>
+                <input id="originalPrice" type="text" placeholder="商品原价">
+            </div>
+            <div class="field">
+                <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">商品现价</font></font></label>
+                <input id="sellingPrice" type="text" placeholder="商品现价">
+            </div>
+        </div>
+        <div class="fields">
+            <div class="field">
+                <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">商品库存</font></font></label>
+                <input id="stockNum" type="text" placeholder="商品库存">
+            </div>
+            <div class="field">
+                <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">商家ID</font></font></label>
+                <input id="createUser" type="text" placeholder="商家ID">
+            </div>
+        </div>
+        <div class="fields">
+            <div class="field">
+                <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">商品展示图片</font></font></label>
+                <input id="goodsImg" name="goodsImg" type="file" placeholder="商品展示图片">
+            </div>
+        </div>
+        <div class="field">
+            <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">商品介绍</font></font></label>
+            <textarea id="goodsIntro"></textarea>
+        </div>
+    </div>
+<button id="addGoods" class="positive ui button"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">保存</font></font></button>
+<script type="text/javascript" src="https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/semantic-ui/2.4.1/semantic.min.js"></script>
+<script>
+    $("#addGoods").click(function (){
+        //let goodsId=$("#goodsId").val();
+        let goodsName=$("#goodsName").val();
+        let goodsCategoryId=$("#goodsCategoryId").val();
+        let goodsIntro=$("#goodsIntro").val();
+        let originalPrice=$("#originalPrice").val();
+        let sellingPrice=$("#sellingPrice").val();
+        let stockNum=$("#stockNum").val();
+        let createUser=$("#createUser").val();
+        let goodsImg=$("#goodsImg").val();
+        $.ajax({
+            url: "/admin/saveGoods",
+            type: "POST",
+            contentType: "multipart/form-data",
+            data: {
+                "goodsName": goodsName,
+                "goodsCategoryId": goodsCategoryId,
+                "goodsIntro": goodsIntro,
+                "originalPrice": originalPrice,
+                "sellingPrice": sellingPrice,
+                "stockNum": stockNum,
+                "createUser": createUser,
+                "goodsImg": goodsImg},
+            dataType: "json",
+            success: function (data){
+                alert(data.message);
+            },
+            error: function (xhr){
+                alert(xhr.message);
+            }
+        });
+    });
+</script>
+</body>
+</html>
