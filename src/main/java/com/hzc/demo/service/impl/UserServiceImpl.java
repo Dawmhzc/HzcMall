@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.hzc.demo.commom.ErrorEnum.*;
@@ -46,6 +47,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Result deleteUser(int id) {
         if (userMapper.deleteUser(id) == 0) return Result.fail(DATE_NOEXIT);
+        userMapper.deleteUserRight(id);
         return Result.OK();
     }
 
@@ -58,28 +60,43 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Result listUser() {
+        List<UserDto> userDtoList = new ArrayList<>();
         List<User> userList = userMapper.listUser();
-        if (userList == null) Result.fail(DATE_NOEXIT);
-        return Result.OK(userList);
+        for (User user:userList) {
+            UserDto userDto = new UserDto();
+            int right = userMapper.getUserRight(user.getUserId());
+            userDto.setUserId(user.getUserId());
+            userDto.setUserName(user.getUserName());
+            userDto.setUserPwd(user.getUserPwd());
+            userDto.setUserMobile(user.getUserMobile());
+            userDto.setUserEmail(user.getUserEmail());
+            userDto.setRightId(right);
+            userDtoList.add(userDto);
+        }
+        return Result.OK(userDtoList);
     }
 
     @Override
-    public Result updateUser(User user) {
-        if (user == null || user.userName.isEmpty() || user.getUserPwd().isEmpty()) return Result.fail(INVALID_PARAMS);
-        return Result.OK(userMapper.updateUser(user));
-    }
-
-    @Override
-    public Result login() {
-        return Result.OK();
-    }
-
-    @Override
-    public Result updateUserRight(UserDto userDto) {
-        if (userDto == null) return Result.fail(INVALID_PARAMS);
-        if (userDto.getUserId()< 1 || userDto.getUserId() > 3) return Result.fail(RIGHT_NOTEXIT);
+    public Result updateUser(UserDto userDto) {
+        if (userDto == null || userDto.userName.isEmpty() || userDto.getUserPwd().isEmpty()) return Result.fail(INVALID_PARAMS);
+        if (userDto.getRightId()< 1 || userDto.getRightId() > 3) return Result.fail(RIGHT_NOTEXIT);
         if (userMapper.updateUserRight(userDto.getUserId(),userDto.getRightId()) == 0) return Result.fail(DATE_NOEXIT);
+        User user = new User();
+        user.setUserId(userDto.getUserId());
+        user.setUserName(userDto.getUserName());
+        user.setUserPwd(userDto.getUserPwd());
+        user.setUserMobile(userDto.getUserMobile());
+        user.setUserEmail(userDto.getUserEmail());
+        if (userMapper.updateUser(user) == 0) return Result.fail(DATE_NOEXIT);
         return Result.OK();
+    }
+
+    @Override
+    public Result login(String userName,String userPwd) {
+        if (userName.isEmpty() || userPwd.isEmpty()) return Result.fail(INVALID_PARAMS);
+        User user = userMapper.checkLogin(userName,userPwd);
+        if (user == null) return Result.fail(DATE_NOEXIT);
+        return Result.OK(user);
     }
 
     @Override

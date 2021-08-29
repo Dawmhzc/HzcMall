@@ -1,5 +1,5 @@
 
-(function() {
+$("#triggerBtn").click(function() {
 	/*建立模态框对象*/
 	var modalBox = {};
 	/*获取模态框*/

@@ -8,7 +8,7 @@ import com.hzc.demo.pojo.UserDto;
 public interface UserService {
     /**
      * 用户注册
-     * @param user  手机号码只能绑定唯一账号
+     * @param userDto  手机号码只能绑定唯一账号
      * @return
      */
     Result addUser(UserDto userDto);
@@ -35,23 +35,16 @@ public interface UserService {
 
     /**
      * 用户修改账户信息
-     * @param user
+     * @param userDto
      * @return
      */
-    Result updateUser(User user);
+    Result updateUser(UserDto userDto);
 
     /**
      * 用户登录
      * @return
      */
-    Result login();
-
-    /**
-     * 更改用户权限
-     * @param user 用户id
-     * @return
-     */
-    Result updateUserRight(UserDto userDto);
+    Result login(String userName,String userPwd);
 
     /**
      * 查询用户权限

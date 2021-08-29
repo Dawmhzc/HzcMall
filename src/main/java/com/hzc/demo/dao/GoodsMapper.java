@@ -67,7 +67,7 @@ public interface GoodsMapper {
             "                </if>\n" +
             "            </set>\n" +
             "        where goods_id=#{goodsId}</script>")
-    int updateById(Map<String,Object> map);
+    int updateById(Goods goods);
 
     //int batchUpdateSellStatus(List<Integer> ids);
 
@@ -98,3 +98,4 @@ public interface GoodsMapper {
     @Select("select count(goods_category_id) from goods where goods_category_id=#{goodsCategoryId}")
     int selectGoodsByCategoryId(Integer goodsCategoryId);
 }
+

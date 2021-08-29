@@ -3,6 +3,7 @@ package com.hzc.demo.service.impl;
 import com.hzc.demo.commom.Result;
 import com.hzc.demo.dao.CategoryMapper;
 import com.hzc.demo.dao.GoodsMapper;
+import com.hzc.demo.dao.ShopCartMapper;
 import com.hzc.demo.pojo.Goods;
 import com.hzc.demo.pojo.GoodsCategory;
 import com.hzc.demo.service.GoodsService;
@@ -13,12 +14,13 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.lang.reflect.Field;
 import java.util.*;
 
 /*
-* 除了delGoodsList、downGoods方法其他增删改方法的返回结果1代表成功，0代表失败
-* 该业务层下的所有商品种类id均用goodsCategoryId表示
-* */
+ * 除了delGoodsList、downGoods方法其他增删改方法的返回结果1代表成功，0代表失败
+ * 该业务层下的所有商品种类id均用goodsCategoryId表示
+ * */
 @Service
 public class GoodsServiceImpl implements GoodsService {
 
@@ -26,6 +28,8 @@ public class GoodsServiceImpl implements GoodsService {
     GoodsMapper goodsMapper;
     @Resource
     CategoryMapper categoryMapper;
+    @Resource
+    ShopCartMapper shopCartMapper;
 
     @Override
     public Goods getGoodsById(Integer goodsId) {
@@ -79,25 +83,28 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public Result editGoods(Map<String,Object> map) {
-        Integer goodsId= (Integer) map.get("goodsId");
+    public Result editGoods(Goods goods) {
+        /*Integer goodsId= (Integer) map.get("goodsId");
         String goodsName = (String) map.get("goodsName");
         Integer goodsCategoryId= (Integer) map.get("goodsCategoryId");
-        Integer createUser= (Integer) map.get("createUser");
-        if (!StringUtils.hasLength(goodsName) || goodsCategoryId.equals(0) || goodsId.equals(0) || createUser.equals(0)){
+        Integer createUser= (Integer) map.get("createUser");*/
+        if (goods.hasIllegalField() || goods.hasIllegalMoney()){
             System.out.println("传入参数不合法");
             return new Result(null,1,"传入参数不合法");
         }
-        //Goods record=goodsMapper.selectById(goodsId);
-        if (goodsMapper.selectById(goodsId)==null) {
+        Goods record=goodsMapper.selectById(goods.getGoodsId());
+        if (record==null) {
             System.out.println("数据不存在");
             return new Result(null,1,"数据不存在");
         }
-        if (goodsMapper.selectByCategoryIdAndNameAndUser(goodsName,goodsCategoryId,createUser)!=null){
-            System.out.println("修改后数据重复");
-            return new Result(null,1,"修改后数据重复");
+        Goods other=goodsMapper.selectByCategoryIdAndNameAndUser(goods.getGoodsName(),goods.getGoodsCategoryId(),goods.getCreateUser());
+        if (other!=null){
+            if (goods.equals(other)){
+                System.out.println("修改后数据重复");
+                return new Result(null,1,"修改后数据重复");
+            }
         }
-        return goodsMapper.updateById(map)>0 ?
+        return goodsMapper.updateById(goods)>0 ?
                 new Result(null,0,"修改成功"):new Result(null,1,"修改失败");
     }
 
@@ -141,15 +148,12 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public Result delGoodsList(List<Integer> goodsId_list) {
         int row=0;
-        if (goodsId_list.size()==0) {
-            System.out.println("传入参数不合法");
-            return new Result(null,1,"传入参数不合法");
+        //用该方式判断是否传递空参不会抛出空指针异常，判断空集合的size会抛出空指针异常
+        if (CollectionUtils.isEmpty(goodsId_list)) {
+            System.out.println("参数不合法");
+            return new Result(null,1,"不能传递空参");
         }
         for (Integer goodsId:goodsId_list){
-            if (goodsId==null || goodsId==0) {
-                System.out.println("传入参数不合法");
-                return new Result(null,1,"传入参数不合法");
-            }
             if (this.getGoodsById(goodsId)!=null)  row+=goodsMapper.deleteById(goodsId);
         }
         return row>0 ?

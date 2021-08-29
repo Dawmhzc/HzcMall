@@ -3,11 +3,13 @@ package com.hzc.demo.controller.common;
 import com.alipay.api.*;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
+import com.hzc.demo.util.getRandom;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -38,12 +40,21 @@ public class AliController {
      * @param response ali支付请求响应
      */
     @RequestMapping("/alipay")
-    public void aliPay(HttpServletResponse response) {
+    public void aliPay(HttpServletRequest request, HttpServletResponse response) {
+        String id = getRandom.getRandomId();
+        String goodsName = (String) request.getAttribute("goodsName");
+        BigDecimal price = new BigDecimal((double) request.getAttribute("total"));
+
         AlipayClient alipayClient = new DefaultAlipayClient(GATEWAY_URL, APP_ID, APP_PRIVATE_KEY, FORMAT, CHARSET, ALIPAY_PUBLIC_KEY, SIGN_TYPE);
         AlipayTradePagePayRequest aliRequest = new AlipayTradePagePayRequest();
         aliRequest.setReturnUrl("回调地址");
         aliRequest.setNotifyUrl("通知地址");
-        aliRequest.setBizContent("订单信息");
+
+        aliRequest.setBizContent( "{"  +
+                "    \"out_trade_no\":"+id  +
+                "    \"total_amount\":"+price  +
+                "    \"subject\":"+goodsName +
+                "    \"product_code\":\"FAST_INSTANT_TRADE_PAY\",");
         String form = "";
         try {
             form = alipayClient.pageExecute(aliRequest).getBody();

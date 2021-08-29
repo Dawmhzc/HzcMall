@@ -12,7 +12,7 @@ public interface GoodsService {
     List<Goods> getGoodsList(Map<String,Object> map);
     Result saveGoods(Goods goods);
     Result saveGoodsList(List<Goods> goodsList);
-    Result editGoods(Map<String,Object> map);
+    Result editGoods(Goods goods);
     Result downGoods(List<Integer> goodsId_list, Integer sellStatus);
     Result delGoods(Integer goodsId);
     Result delGoodsList(List<Integer> goodsId_list);

@@ -6,10 +6,26 @@ spring:
     active: dev
 
   mvc:
-    static-path-pattern: /**
+    static-path-pattern: /static/**
+
+  thymeleaf:
+    cache: false
+
+  mail:
+    username: #你的qq邮箱
+    password: #你的邮箱授权码
+    host: smtp.qq.com
+    # qq需要配置ssl
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: true
+
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.hzc.demo.pojo
   configuration:
     map-underscore-to-camel-case: true
+
