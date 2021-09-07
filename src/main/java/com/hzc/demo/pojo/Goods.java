@@ -31,9 +31,7 @@ public class Goods {
     private Integer createUser;//商家id？
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
-    private Integer updateUser;//不知道什么作用，数据库暂时未写入该字段
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date updateTime;//不知道什么作用，数据库暂时未写入该字段
+
 
     public boolean hasIllegalField() {
         return !StringUtils.hasLength(goodsName) || goodsCategoryId==null || !StringUtils.hasLength(goodsIntro)

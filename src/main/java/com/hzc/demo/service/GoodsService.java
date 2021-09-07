@@ -18,4 +18,6 @@ public interface GoodsService {
     Result delGoodsList(List<Integer> goodsId_list);
     List<Goods> searchGoodsByKeyword(Map<String,Object> map);
     List<Goods> findGoodsByLevel(CategoryMap categoryMap, Integer sellStatus);
+    Goods getUserGoods(String goodsName,Integer categoryId,Integer createUser);
+
 }

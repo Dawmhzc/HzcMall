@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class UserDto extends User{
-    public Integer rightId;
+    private Integer rightId;
 }

@@ -7,6 +7,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Map;
 
+/*
+* 此处修改过
+* */
 @Repository
 public interface CategoryMapper {
 

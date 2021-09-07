@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.hzc.demo.commom.ErrorEnum.*;
 
@@ -22,11 +25,9 @@ public class OrderServiceImpl implements OrderService {
     private OrderMapper orderMapper;
     @Override
     public Result addOrder(Order order) {
-        if (order.getOrdAddress().isEmpty() || order.getOrdGoodId() == 0 || order.getOrdShopId() == 0
-                || order.getOrdUserId() == 0 || order.getOrdGoodNumb() <= 0)
+        if (order.getOrdAddress().isEmpty() || order.getOrdGoodName().isEmpty() || order.getOrdShopId() == null
+                || order.getOrdUserId() == null || order.getOrdGoodNumb() <= 0)
             return Result.fail(ORDER_ERRER);
-        if (order.getOrdStatus() < 1 && order.getOrdStatus() >3)
-            return Result.fail(ERROR_STATUS);
         orderMapper.addOrder(order);
         return Result.OK();
     }
@@ -41,6 +42,33 @@ public class OrderServiceImpl implements OrderService {
     public Result listAllOrder() {
         List<Order> orderList = orderMapper.listAllOrder();
         return Result.OK(orderList);
+    }
+
+    @Override
+    public Result wishList() {
+        int index = 0;
+        int count = 0;
+        List<Order> orderList = orderMapper.listAllOrder();
+        Map<Integer,Order> map = new HashMap<>();
+        Map<Integer,Integer> map1 = new HashMap<>();
+        List<Integer> list = new ArrayList<>();
+        for (Order order:orderList) {
+            Integer ordShopId = order.getOrdShopId();
+            map.put(ordShopId,order);
+            count++;
+            map1.putIfAbsent(ordShopId, index);
+            Integer integer = map1.get(ordShopId);
+            integer++;
+            map1.replace(ordShopId,integer);
+        }
+        for (Map.Entry<Integer,Integer> entry :map1.entrySet()){
+            Integer value = entry.getValue();
+            Integer shopId = entry.getKey();
+            if ((float)value / count >= 0.2)
+                list.add(shopId);
+        }
+        for ()
+        return Result.OK(list);
     }
 
     @Override
@@ -67,13 +95,13 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Result updateOrder(Order order) {
-        if (order.getOrdAddress().isEmpty() || order.getOrdGoodId() == 0 || order.getOrdShopId() == 0
-                || order.getOrdUserId() == 0 || order.getOrdGoodNumb() <= 0)
+        if (order.getOrdAddress().isEmpty() || order.getOrdGoodName().isEmpty() || order.getOrdShopId() == null
+                || order.getOrdUserId() == null || order.getOrdGoodNumb() <= 0)
             return Result.fail(ORDER_ERRER);
-        if (order.getOrdStatus() < 1 && order.getOrdStatus() >3)
-            return Result.fail(ERROR_STATUS);
         if (orderMapper.updateOrder(order) == 0)
             return Result.fail(DATE_NOEXIT);
         return Result.OK();
     }
+
+
 }

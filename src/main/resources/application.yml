@@ -8,9 +8,6 @@ spring:
   mvc:
     static-path-pattern: /static/**
 
-  thymeleaf:
-    cache: false
-
   mail:
     username: #你的qq邮箱
     password: #你的邮箱授权码

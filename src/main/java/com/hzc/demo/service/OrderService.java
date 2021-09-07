@@ -51,4 +51,6 @@ public interface OrderService {
      * @return
      */
     Result listAllOrder();
+
+    Result wishList();
 }

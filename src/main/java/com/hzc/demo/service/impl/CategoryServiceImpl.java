@@ -9,6 +9,7 @@ import com.hzc.demo.util.CategoryMap;
 import com.hzc.demo.util.CategoryMapforMap;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import java.util.Map;
 
 /*
 * 该业务层下的种类id用categoryId表示
+* 该业务层有修改
 * */
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -41,7 +43,7 @@ public class CategoryServiceImpl implements CategoryService {
             return new Result(null,1,"数据重复");
         }
         return categoryMapper.insert(goodsCategory)>0 ?
-                new Result(null,0,"删除成功"):new Result(null,1,"删除失败");
+                new Result(null,0,"添加成功"):new Result(null,1,"添加失败");
     }
 
     @Override

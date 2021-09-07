@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface UserMapper {
-    @Insert("insert into mall.user(user_id, user_name, user_pwd, user_mobile, user_email) values (#{userId},#{userName},#{userPwd},#{userMobile},#{userEmail})")
+    @Insert("insert into  user(user_id, user_name, user_pwd, user_mobile, user_email) values (#{userId},#{userName},#{userPwd},#{userMobile},#{userEmail})")
     int addUser(User user);
 
     @Delete("delete from mall.user where user_id = #{id}")

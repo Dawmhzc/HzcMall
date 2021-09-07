@@ -1,18 +1,18 @@
 package com.hzc.demo.controller.common;
 
 import com.alipay.api.*;
-import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
-import com.hzc.demo.util.getRandom;
+import com.hzc.demo.pojo.Goods;
+import com.hzc.demo.pojo.ShopCart;
+import com.hzc.demo.pojo.UserAddress;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.net.URLEncoder;
 
 /**
  * 支付宝沙箱支付
@@ -30,31 +30,43 @@ public class AliController {
     private final String FORMAT = "JSON";
     //签名方式
     private final String SIGN_TYPE = "RSA2";
-    //支付宝异步通知路径,付款完毕后异步调用方法,公网地址
-    private final String NOTIFY_URL = "";
     //支付宝同步通知路径,也就是当付款完毕后跳转本项目的页面
-    private final String RETURN_URL = "";
+    private final String RETURN_URL = "http://localhost:8081/order/add";
 
     /**
      * 调用ali支付接口
      * @param response ali支付请求响应
      */
     @RequestMapping("/alipay")
-    public void aliPay(HttpServletRequest request, HttpServletResponse response) {
-        String id = getRandom.getRandomId();
-        String goodsName = (String) request.getAttribute("goodsName");
-        BigDecimal price = new BigDecimal((double) request.getAttribute("total"));
+    public void aliPay(HttpServletRequest request, HttpServletResponse response) throws AlipayApiException, UnsupportedEncodingException {
+        String id = (String) request.getSession().getAttribute("ordId");
+        Goods goods = (Goods) request.getSession().getAttribute("goods");
+        ShopCart shopCart = (ShopCart) request.getSession().getAttribute("cart");
+        UserAddress userAddress = (UserAddress) request.getSession().getAttribute("address");
+        Integer userId = (Integer) request.getSession().getAttribute("userId");
+        Double total = goods.getSellingPrice()*shopCart.getGoodsCount();
+        BigDecimal price = BigDecimal.valueOf(total);
 
         AlipayClient alipayClient = new DefaultAlipayClient(GATEWAY_URL, APP_ID, APP_PRIVATE_KEY, FORMAT, CHARSET, ALIPAY_PUBLIC_KEY, SIGN_TYPE);
         AlipayTradePagePayRequest aliRequest = new AlipayTradePagePayRequest();
-        aliRequest.setReturnUrl("回调地址");
-        aliRequest.setNotifyUrl("通知地址");
+        aliRequest.setReturnUrl(RETURN_URL);
 
-        aliRequest.setBizContent( "{"  +
-                "    \"out_trade_no\":"+id  +
-                "    \"total_amount\":"+price  +
-                "    \"subject\":"+goodsName +
-                "    \"product_code\":\"FAST_INSTANT_TRADE_PAY\",");
+        //商户订单号，商户网站订单系统中唯一订单号，必填
+        String out_trade_no = id;
+        //付款金额，必填
+        String total_amount = price.toString();
+        //订单名称，必填
+        String subject = goods.getGoodsName();
+
+        //商品描述，可空
+        String body = new String(("地址："+userAddress.getAddress()+"联系电话："+userAddress.getMobile()).getBytes("ISO-8859-1"),"UTF-8");
+
+        aliRequest.setBizContent("{\"out_trade_no\":\"" + out_trade_no + "\","
+                + "\"total_amount\":\"" + total_amount + "\","
+                + "\"subject\":\"" + subject + "\","
+                + "\"body\":\"" + body + "\","
+                + "\"product_code\":\"FAST_INSTANT_TRADE_PAY\"}");
+
         String form = "";
         try {
             form = alipayClient.pageExecute(aliRequest).getBody();
@@ -64,35 +76,6 @@ public class AliController {
             response.getWriter().close();
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    /**
-     * 支付后回调方法
-     * @param request  ali成功支付请求
-     * @return 返回网址
-     * @throws Exception
-     */
-    @RequestMapping("/returnurl")
-    public String returnUrl(HttpServletRequest request) throws Exception {
-        Map<String,String> params = new HashMap<String,String>();
-        Map<String,String[]> requestParams = request.getParameterMap();
-        Iterator<String> iter = requestParams.keySet().iterator();
-        if (iter.hasNext()){
-            String name = iter.next();
-            String[] values = requestParams.get(name);
-            String valueStr = "";
-            for (int i=0;i<values.length;i++)
-                valueStr = (i == values.length-1)?valueStr + values[i]:valueStr + values[i] + ",";
-            valueStr = new String(valueStr.getBytes("UTF-8"),"UTF-8");
-            params.put(name,valueStr);
-        }
-
-        boolean signsuccess = AlipaySignature.certVerifyV1(params,ALIPAY_PUBLIC_KEY,CHARSET,SIGN_TYPE);
-        if (signsuccess){
-            return "OK";
-        }else {
-            return "fail";
         }
     }
 }

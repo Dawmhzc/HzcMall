@@ -3,6 +3,7 @@ package com.hzc.demo.service.impl;
 import com.hzc.demo.commom.Result;
 import com.hzc.demo.dao.CategoryMapper;
 import com.hzc.demo.dao.GoodsMapper;
+import com.hzc.demo.dao.PriceSurgeMapper;
 import com.hzc.demo.dao.ShopCartMapper;
 import com.hzc.demo.pojo.Goods;
 import com.hzc.demo.pojo.GoodsCategory;
@@ -18,9 +19,9 @@ import java.lang.reflect.Field;
 import java.util.*;
 
 /*
- * 除了delGoodsList、downGoods方法其他增删改方法的返回结果1代表成功，0代表失败
- * 该业务层下的所有商品种类id均用goodsCategoryId表示
- * */
+* 除了delGoodsList、downGoods方法其他增删改方法的返回结果1代表成功，0代表失败
+* 该业务层下的所有商品种类id均用goodsCategoryId表示
+* */
 @Service
 public class GoodsServiceImpl implements GoodsService {
 
@@ -30,6 +31,8 @@ public class GoodsServiceImpl implements GoodsService {
     CategoryMapper categoryMapper;
     @Resource
     ShopCartMapper shopCartMapper;
+    @Resource
+    PriceSurgeMapper priceSurgeMapper;
 
     @Override
     public Goods getGoodsById(Integer goodsId) {
@@ -61,8 +64,9 @@ public class GoodsServiceImpl implements GoodsService {
             //return 0;
         }
         goods.setCreateTime(new Date());
-        return goodsMapper.insert(goods)>0 ?
+        Result result=goodsMapper.insert(goods)>0 ?
                 new Result(null,0,"插入成功"):new Result(null,1,"插入失败");
+        return result;
     }
 
     //暂时未确定是否要使用批量插入数据
@@ -89,8 +93,8 @@ public class GoodsServiceImpl implements GoodsService {
         Integer goodsCategoryId= (Integer) map.get("goodsCategoryId");
         Integer createUser= (Integer) map.get("createUser");*/
         if (goods.hasIllegalField() || goods.hasIllegalMoney()){
-            System.out.println("传入参数不合法");
-            return new Result(null,1,"传入参数不合法");
+                System.out.println("传入参数不合法");
+                return new Result(null,1,"传入参数不合法");
         }
         Goods record=goodsMapper.selectById(goods.getGoodsId());
         if (record==null) {
@@ -218,5 +222,10 @@ public class GoodsServiceImpl implements GoodsService {
             }
         }
         return goodsAllList;
+    }
+
+    @Override
+    public Goods getUserGoods(String goodsName, Integer categoryId, Integer createUser) {
+        return goodsMapper.selectByCategoryIdAndNameAndUser(goodsName,categoryId,createUser);
     }
 }
