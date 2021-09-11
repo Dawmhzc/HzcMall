@@ -2,16 +2,15 @@ package com.hzc.demo.service;
 
 import com.hzc.demo.commom.Result;
 import com.hzc.demo.pojo.User;
-import com.hzc.demo.pojo.UserDto;
 
 
 public interface UserService {
     /**
      * 用户注册
-     * @param userDto  手机号码只能绑定唯一账号
+     * @param user  手机号码只能绑定唯一账号
      * @return
      */
-    Result addUser(UserDto userDto);
+    Result addUser(User user);
 
     /**
      * 管理员账号删除账号
@@ -35,10 +34,10 @@ public interface UserService {
 
     /**
      * 用户修改账户信息
-     * @param userDto
+     * @param user
      * @return
      */
-    Result updateUser(UserDto userDto);
+    Result updateUser(User user);
 
     /**
      * 用户登录
@@ -46,10 +45,4 @@ public interface UserService {
      */
     Result login(String userName,String userPwd);
 
-    /**
-     * 查询用户权限
-     * @param userId 用户id
-     * @return
-     */
-    Result getUserRight(int userId);
 }

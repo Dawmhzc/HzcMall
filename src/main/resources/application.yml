@@ -8,9 +8,12 @@ spring:
   mvc:
     static-path-pattern: /static/**
 
+  thymeleaf:
+    cache: false
+
   mail:
-    username: #你的qq邮箱
-    password: #你的邮箱授权码
+    username: 904096333@qq.com
+    password: qsdsypfdasffbbej
     host: smtp.qq.com
     # qq需要配置ssl
     properties:

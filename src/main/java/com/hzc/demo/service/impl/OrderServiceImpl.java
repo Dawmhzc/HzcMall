@@ -4,6 +4,7 @@ import com.hzc.demo.commom.Result;
 import com.hzc.demo.dao.OrderMapper;
 import com.hzc.demo.pojo.Order;
 import com.hzc.demo.service.OrderService;
+import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -35,20 +36,22 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Result listShopOrder(int shopId) {
         List<Order> orderShopList = orderMapper.listShopOrder(shopId);
+        if (orderShopList == null) return Result.fail(DATE_NOEXIT);
         return Result.OK(orderShopList);
     }
 
     @Override
     public Result listAllOrder() {
         List<Order> orderList = orderMapper.listAllOrder();
+        if (orderList == null) return Result.fail(DATE_NOEXIT);
         return Result.OK(orderList);
     }
 
     @Override
-    public Result wishList() {
+    public Result wishList(int userId) {
         int index = 0;
         int count = 0;
-        List<Order> orderList = orderMapper.listAllOrder();
+        List<Order> orderList = orderMapper.listUserOrder(userId);
         Map<Integer,Order> map = new HashMap<>();
         Map<Integer,Integer> map1 = new HashMap<>();
         List<Integer> list = new ArrayList<>();
@@ -67,29 +70,27 @@ public class OrderServiceImpl implements OrderService {
             if ((float)value / count >= 0.2)
                 list.add(shopId);
         }
-        for ()
         return Result.OK(list);
     }
 
     @Override
     public Result getOrder(String ordId) {
-        if (ordId.isEmpty()) return  Result.fail(ORRERID_NOTINPUT);
+        if (ordId.isEmpty()) return Result.fail(INVALID_PARAMS);
         Order order = orderMapper.getOrder(ordId);
-        if (order == null)
-            return Result.fail(DATE_NOEXIT);
+        if (order == null) return Result.fail(DATE_NOEXIT);
         return Result.OK(order);
     }
 
     @Override
     public Result listUserOrder(int userId) {
         List<Order> orderUserList = orderMapper.listUserOrder(userId);
+        if (orderUserList == null) return Result.fail(DATE_NOEXIT);
         return Result.OK(orderUserList);
     }
 
     @Override
     public Result deleteOrder(String ordId) {
-        if (orderMapper.deleteOrder(ordId) == 0)
-            return Result.fail(DATE_NOEXIT);
+        if (orderMapper.deleteOrder(ordId) == 0) return Result.fail(DATE_NOEXIT);
         return Result.OK();
     }
 

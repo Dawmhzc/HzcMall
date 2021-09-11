@@ -9,4 +9,5 @@ public class User {
     private String userPwd;
     private String userMobile;
     private String userEmail;
+    public Integer userRight;
 }

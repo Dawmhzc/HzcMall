@@ -23,12 +23,12 @@ public interface OrderMapper {
     @Select("select * from mall.order where ord_id=#{ordId}")
     Order getOrder(String ordId);
 
-    @Select("select * from mall.order where ord_user_id=#{userId}")
+    @Select("select * from mall.order where ord_user_id=#{userId} order by ord_buytime desc")
     List<Order> listUserOrder(int userId);
 
-    @Select("select * from mall.order where ord_shop_id=#{shopId}")
+    @Select("select * from mall.order where ord_shop_id=#{shopId} order by ord_buytime desc")
     List<Order> listShopOrder(int shopId);
 
-    @Select("select * from mall.order")
+    @Select("select * from mall.order order by ord_buytime desc")
     List<Order> listAllOrder();
 }

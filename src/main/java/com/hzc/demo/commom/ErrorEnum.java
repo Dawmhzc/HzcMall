@@ -15,7 +15,10 @@ public enum ErrorEnum {
     USER_MOBILEEXIT(6,"手机已绑定账号"),
     ORDER_ERRER(7,"错误的订单信息"),
     ERROR_STATUS(8,"错误的订单状态"),
-    ORRERID_NOTINPUT(9,"没有输入订单号");
+    INPUT_FAIL(9,"请输入账号或者密码"),
+    LOGIN_STATE(10,"请登录账号"),
+    ADDRESS_INPUT(11,"请输入收货地址信息"),
+    LOGIN_FAIL(12,"账号或密码错误");
 
 
 

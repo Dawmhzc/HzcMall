@@ -1,19 +1,16 @@
 package com.hzc.demo.controller.common;
 
 import com.alipay.api.*;
+import com.alipay.api.request.AlipayFundAuthOrderVoucherCreateRequest;
 import com.alipay.api.request.AlipayTradePagePayRequest;
-import com.hzc.demo.pojo.Goods;
-import com.hzc.demo.pojo.ShopCart;
-import com.hzc.demo.pojo.UserAddress;
+import com.alipay.api.response.AlipayFundAuthOrderVoucherCreateResponse;
+import com.hzc.demo.pojo.Order;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
-import java.math.BigDecimal;
-import java.net.URLEncoder;
-
 /**
  * 支付宝沙箱支付
  * @author hzc
@@ -39,27 +36,21 @@ public class AliController {
      */
     @RequestMapping("/alipay")
     public void aliPay(HttpServletRequest request, HttpServletResponse response) throws AlipayApiException, UnsupportedEncodingException {
-        String id = (String) request.getSession().getAttribute("ordId");
-        Goods goods = (Goods) request.getSession().getAttribute("goods");
-        ShopCart shopCart = (ShopCart) request.getSession().getAttribute("cart");
-        UserAddress userAddress = (UserAddress) request.getSession().getAttribute("address");
-        Integer userId = (Integer) request.getSession().getAttribute("userId");
-        Double total = goods.getSellingPrice()*shopCart.getGoodsCount();
-        BigDecimal price = BigDecimal.valueOf(total);
+        Order order = (Order) request.getSession().getAttribute("order");
 
         AlipayClient alipayClient = new DefaultAlipayClient(GATEWAY_URL, APP_ID, APP_PRIVATE_KEY, FORMAT, CHARSET, ALIPAY_PUBLIC_KEY, SIGN_TYPE);
         AlipayTradePagePayRequest aliRequest = new AlipayTradePagePayRequest();
         aliRequest.setReturnUrl(RETURN_URL);
 
         //商户订单号，商户网站订单系统中唯一订单号，必填
-        String out_trade_no = id;
+        String out_trade_no = order.getOrdId();
         //付款金额，必填
-        String total_amount = price.toString();
+        String total_amount = order.getOrdTotal().toString();
         //订单名称，必填
-        String subject = goods.getGoodsName();
+        String subject = order.getOrdGoodName();
 
         //商品描述，可空
-        String body = new String(("地址："+userAddress.getAddress()+"联系电话："+userAddress.getMobile()).getBytes("ISO-8859-1"),"UTF-8");
+        String body = new String(("地址："+order.getOrdAddress()+"联系电话："+order.getOrdMobile()).getBytes("ISO-8859-1"),"UTF-8");
 
         aliRequest.setBizContent("{\"out_trade_no\":\"" + out_trade_no + "\","
                 + "\"total_amount\":\"" + total_amount + "\","
@@ -76,6 +67,34 @@ public class AliController {
             response.getWriter().close();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @RequestMapping("/test")
+    public void test() throws AlipayApiException {
+        AlipayClient alipayClient = new DefaultAlipayClient("https://openapi.alipay.com/gateway.do","app_id","your private_key","json","GBK","alipay_public_key","RSA2");
+        AlipayFundAuthOrderVoucherCreateRequest request = new AlipayFundAuthOrderVoucherCreateRequest();
+        request.setBizContent("{" +
+                "\"out_order_no\":\"8077735255938023\"," +
+                "\"out_request_no\":\"8077735255938032\"," +
+                "\"order_title\":\"预授权发码\"," +
+                "\"amount\":100.00," +
+                "\"payee_user_id\":\"2088102000275795\"," +
+                "\"payee_logon_id\":\"159****5620\"," +
+                "\"pay_timeout\":\"2d\"," +
+                "\"extra_param\":\"{\\\"category\\\":\\\"HOTEL\\\"}\"," +
+                "\"product_code\":\"PRE_AUTH\"," +
+                "\"trans_currency\":\"USD\"," +
+                "\"settle_currency\":\"USD\"," +
+                "\"enable_pay_channels\":\"[{\\\"payChannelType\\\":\\\"PCREDIT_PAY\\\"},{\\\"payChannelType\\\":\\\"MONEY_FUND\\\"}]\"," +
+                "\"disable_pay_channels\":\"[{\\\"payChannelType\\\":\\\"OPTIMIZED_MOTO\\\"},{\\\"payChannelType\\\":\\\"BIGAMOUNT_CREDIT_CARTOON\\\"}]\"," +
+                "\"identity_params\":\"{\\\"identity_hash\\\":\\\"ABCDEFDxxxxxx\\\",\\\"alipay_user_id\\\":\\\"2088xxx\\\"}\"" +
+                "  }");
+        AlipayFundAuthOrderVoucherCreateResponse response = alipayClient.execute(request);
+        if(response.isSuccess()){
+            System.out.println("调用成功");
+        } else {
+            System.out.println("调用失败");
         }
     }
 }

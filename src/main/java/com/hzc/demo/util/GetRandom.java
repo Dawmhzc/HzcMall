@@ -2,7 +2,7 @@ package com.hzc.demo.util;
 
 import java.util.Random;
 
-public class getRandom {
+public class GetRandom {
     public static String getRandomId(){
         Random random = new Random();
         StringBuilder builder = new StringBuilder();

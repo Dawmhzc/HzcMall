@@ -52,5 +52,9 @@ public interface OrderService {
      */
     Result listAllOrder();
 
-    Result wishList();
+    /**
+     * 购物特定商家推荐
+     * @return
+     */
+    Result wishList(int userId);
 }
