@@ -20,11 +20,11 @@ public class Result {
     }
 
     public static Result OK(){
-        return new Result(null,0,null);
+        return new Result(null,0,"操作成功");
     }
 
     public static Result OK(Object data){
-        return new Result(data,0,null);
+        return new Result(data,0,"操作成功");
     }
 
     public static Result fail(ErrorEnum error){

@@ -26,6 +26,7 @@ public interface OrderMapper {
     @Select("select * from mall.order where ord_user_id=#{userId} order by ord_buytime desc")
     List<Order> listUserOrder(int userId);
 
+
     @Select("select * from mall.order where ord_shop_id=#{shopId} order by ord_buytime desc")
     List<Order> listShopOrder(int shopId);
 

@@ -1,5 +1,6 @@
 package com.hzc.demo.service;
 
+import com.alipay.api.domain.GoodsDetail;
 import com.hzc.demo.commom.Result;
 import com.hzc.demo.pojo.Goods;
 import com.hzc.demo.util.CategoryMap;
@@ -21,4 +22,5 @@ public interface GoodsService {
     List<Goods> findGoodsByLevel(CategoryMap categoryMap, Integer sellStatus);
     Goods getUserGoods(String goodsName,Integer categoryId,Integer createUser);
     List<Goods> getUserAllGoods(IdCollection createUser_ids);
+    Result getGoodsByUser(Integer userId);
 }

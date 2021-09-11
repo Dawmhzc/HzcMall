@@ -1,5 +1,6 @@
 package com.hzc.demo.service.impl;
 
+import com.hzc.demo.commom.ErrorEnum;
 import com.hzc.demo.commom.Result;
 import com.hzc.demo.dao.CategoryMapper;
 import com.hzc.demo.dao.GoodsMapper;
@@ -17,6 +18,8 @@ import org.springframework.util.StringUtils;
 import javax.annotation.Resource;
 import java.lang.reflect.Field;
 import java.util.*;
+
+import static com.hzc.demo.commom.ErrorEnum.INVALID_PARAMS;
 
 /*
  * 除了delGoodsList、downGoods方法其他增删改方法的返回结果1代表成功，0代表失败
@@ -234,5 +237,12 @@ public class GoodsServiceImpl implements GoodsService {
             return goodsMapper.selectGoodsByUser(ids);
         }
         return null;
+    }
+
+    @Override
+    public Result getGoodsByUser(Integer userId) {
+        if (userId == null) return Result.fail(INVALID_PARAMS);
+        List<Goods> list = goodsMapper.getGoodsByUser(userId);
+        return Result.OK(list);
     }
 }

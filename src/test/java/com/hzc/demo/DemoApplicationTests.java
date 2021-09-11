@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.*;
 
 @SpringBootTest
@@ -17,5 +18,9 @@ class DemoApplicationTests {
 
     @Test
     void contextLoads() {
+        System.out.println(99.9 * 1);
+        Double i = 99.9 * 1;
+        System.out.println(i);
+        System.out.println(BigDecimal.valueOf(i));
     }
 }

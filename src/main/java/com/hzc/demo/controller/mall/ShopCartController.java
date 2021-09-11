@@ -48,14 +48,16 @@ public class ShopCartController {
         List<Map<String,Object>> shopCarts=new ArrayList<>();
         for (ShopCart shopCart:shopCartList) {
             Goods goods=goodsService.getGoodsById(shopCart.getGoodsId());
-            Map<String,Object> map=new HashMap<>();
-            map.put("shopCartId",shopCart.getShopCartId());
-            map.put("goodsId",goods.getGoodsId());
-            map.put("goodsName",goods.getGoodsName());
-            map.put("sellingPrice",goods.getSellingPrice());
-            map.put("goodsCount",shopCart.getGoodsCount());
-            map.put("Total",shopCart.getGoodsCount()*goods.getSellingPrice());
-            shopCarts.add(map);
+            if (goods!=null) {
+                Map<String,Object> map=new HashMap<>();
+                map.put("shopCartId",shopCart.getShopCartId());
+                map.put("goodsId",goods.getGoodsId());
+                map.put("goodsName",goods.getGoodsName());
+                map.put("sellingPrice",goods.getSellingPrice());
+                map.put("goodsCount",shopCart.getGoodsCount());
+                map.put("Total",shopCart.getGoodsCount()*goods.getSellingPrice());
+                shopCarts.add(map);
+            }
         }
         model.addAttribute("shopCartList",shopCarts);
         return "mall/cart";
@@ -151,8 +153,11 @@ public class ShopCartController {
         if (address == null || mobile == null || address.isEmpty() || mobile.isEmpty()){
             return "redirect:/address/all";
         }
-        Double total = goods.getSellingPrice()*shopCart.getGoodsCount();
-        BigDecimal price = BigDecimal.valueOf(total);
+        String sellingPrice = goods.getSellingPrice().toString();
+        String goodsCount = shopCart.getGoodsCount().toString();
+        BigDecimal numb = new BigDecimal(goodsCount);
+        BigDecimal selPrice = new BigDecimal(sellingPrice);
+        BigDecimal price = numb.multiply(selPrice);
         request.setAttribute("ordId",id);
         request.setAttribute("goods",goods);
         request.setAttribute("cartNumb",shopCart.getGoodsCount());

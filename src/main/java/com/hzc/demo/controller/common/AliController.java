@@ -50,7 +50,7 @@ public class AliController {
         String subject = order.getOrdGoodName();
 
         //商品描述，可空
-        String body = new String(("地址："+order.getOrdAddress()+"联系电话："+order.getOrdMobile()).getBytes("ISO-8859-1"),"UTF-8");
+        String body = new String("地址:"+order.getOrdAddress()+"      "+"联系电话:"+order.getOrdMobile());
 
         aliRequest.setBizContent("{\"out_trade_no\":\"" + out_trade_no + "\","
                 + "\"total_amount\":\"" + total_amount + "\","

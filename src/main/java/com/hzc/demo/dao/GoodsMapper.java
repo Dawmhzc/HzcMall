@@ -100,5 +100,8 @@ public interface GoodsMapper {
 
     @Select("select * from goods where create_user in (${ids})")
     List<Goods> selectGoodsByUser(String ids);
+
+    @Select("select * from goods where create_user=#{userId}")
+    List<Goods> getGoodsByUser(int userId);
 }
 
