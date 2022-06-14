@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>懒人电商</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="../../static/assets/images/favicon.png"/>
+    <link rel="stylesheet" href="../../static/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../static/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../static/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../../static/assets/css/animate.min.css">
+    <link rel="stylesheet" href="../../static/assets/css/jquery-ui.css">
+    <link rel="stylesheet" href="../../static/assets/css/slick.css">
+    <link rel="stylesheet" href="../../static/assets/css/chosen.min.css">
+    <link rel="stylesheet" href="../../static/assets/css/pe-icon-7-stroke.css">
+    <link rel="stylesheet" href="../../static/assets/css/magnific-popup.min.css">
+    <link rel="stylesheet" href="../../static/assets/css/lightbox.min.css">
+    <link rel="stylesheet" href="../../static/assets/js/fancybox/source/jquery.fancybox.css">
+    <link rel="stylesheet" href="../../static/assets/css/jquery.scrollbar.min.css">
+    <link rel="stylesheet" href="../../static/assets/css/mobile-menu.css">
+    <link rel="stylesheet" href="../../static/assets/fonts/flaticon/flaticon.css">
+    <link rel="stylesheet" href="../../static/assets/css/style1.css">
+    <link rel="stylesheet" href="../../static/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../static/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../static/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../../static/assets/css/animate.min.css">
+    <link rel="stylesheet" href="../../static/assets/css/jquery-ui.css">
+    <link rel="stylesheet" href="../../static/assets/css/slick.css">
+    <link rel="stylesheet" href="../../static/assets/css/chosen.min.css">
+    <link rel="stylesheet" href="../../static/assets/css/pe-icon-7-stroke.css">
+    <link rel="stylesheet" href="../../static/assets/css/magnific-popup.min.css">
+    <link rel="stylesheet" href="../../static/assets/css/lightbox.min.css">
+    <link rel="stylesheet" href="../../static/assets/js/fancybox/source/jquery.fancybox.css">
+    <link rel="stylesheet" href="../../static/assets/css/jquery.scrollbar.min.css">
+    <link rel="stylesheet" href="../../static/assets/css/mobile-menu.css">
+    <link rel="stylesheet" href="../../static/assets/fonts/flaticon/flaticon.css">
+    <link rel="stylesheet" href="../../static/assets/css/style1.css">
+    <link rel="stylesheet" href="../../static/assets/css/modalBox.css">
+</head>
+<body class="inblog-page">
+<header class="header style7">
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-left">
+                <div class="header-message">
+                    欢迎来到懒人商城!
+                </div>
+            </div>
+            <div class="top-bar-right">
+                <ul class="header-user-links">
+                    <li th:if="${session.userId} eq null">
+                        <a th:href="@{/login}">Login or Register</a>
+                    </li>
+                    <li th:if="${session.userId} ne null">
+                        <a th:href="@{/user/exit}" th:text="${session.username}">Login or Register</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="main-header">
+            <div class="row">
+                <div class="col-lg-3 col-sm-4 col-md-3 col-xs-7 col-ts-12 header-element">
+                    <div class="logo">
+                        <img src="../../static/assets/images/logo.png" alt="img">
+                    </div>
+                </div>
+                <div class="col-lg-7 col-sm-8 col-md-6 col-xs-5 col-ts-12">
+                    <div class="block-search-block">
+                        <form class="form-search form-search-width-category">
+                            <div class="form-content">
+                                <div class="inner">
+                                    <input type="text" class="input" name="s" value="">
+                                </div>
+                                <button class="btn-search" type="submit">
+                                    <span class="icon-search"></span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header-nav-container">
+        <div class="container">
+            <div class="header-nav-wapper main-menu-wapper">
+                <div class="vertical-wapper block-nav-categori">
+                    <div class="block-title">
+						<span class="icon-bar">
+							<span></span>
+							<span></span>
+							<span></span>
+						</span>
+                        <span class="text">All Categories</span>
+                    </div>
+                </div>
+                <!--菜单栏-->
+                <div class="header-nav">
+                    <div class="container-wapper">
+                        <ul class="dungar-clone-mobile-menu dungar-nav main-menu " id="menu-main-menu">
+                            <li class="menu-item  menu-item-has-children">
+                                <a th:href="@{/}" class="dungar-menu-item-title" title="Home">  首页  </a>
+                            </li>
+                            <li class="menu-item menu-item-has-children">
+                                <a th:href="@{/goods/getGoodsList}" class="dungar-menu-item-title" title="Shop">  商品  </a>
+                            </li>
+                            <li class="menu-item menu-item-has-children">
+                                <a th:href="@{/shopCart/showShopCartList/}" class="dungar-menu-item-title" title="Pages">  购物车  </a>
+                            </li>
+                            <li class="menu-item menu-item-has-children">
+                                <a th:href="@{/order/getall}" class="dungar-menu-item-title" title="Pages">  订单  </a>
+                            </li>
+                            <li class="menu-item menu-item-has-children">
+                                <a th:href="@{/address/all}" class="dungar-menu-item-title" title="Pages">  收货地址  </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="site-content">
+    <main class="site-main  main-container no-sidebar">
+        <div class="container">
+            <div class="breadcrumb-trail breadcrumbs">
+                <ul class="trail-items breadcrumb">
+                </ul>
+            </div>
+            <div class="row">
+                <div class="main-content-cart main-content col-sm-12">
+                    <h3 class="custom_blog_title">
+                        收货地址
+                    </h3>
+                    <div class="page-main-content">
+                        <div class="shoppingcart-content">
+                            <form action="" class="cart-form">
+                                <table class="shop_table" id="shopCart_table">
+                                    <thead>
+                                    <tr>
+                                        <th class="product-quantity">地址</th>
+                                        <th class="product-subtotal">联系电话</th>
+                                        <th class="product-addtocart">action</th>
+                                    </thead>
+                                    <tbody>
+                                    <tr class="cart_item" th:each="address:${userAddress}">
+                                        <td class="product-name" data-title="Product">
+                                            <a th:text="'地址:'+${address.address}" class="title">地址:Mini swing dress</a>
+                                        </td>
+                                        <td class="product-name" data-title="Product">
+                                            <a th:text="'联系电话:'+${address.mobile}" class="title">联系电话:Mini swing dress</a>
+                                        </td>
+                                        <td class="product-addtocart" data-title="Price">
+                                            <a th:href="@{/address/set(id=${address.id})}" th:if="${session.address} eq null or ${session.mobile} eq null or ${session.address ne address.getAddress()} or ${session.mobile ne address.getMobile()}"><input type="button" class="button editNum" value="设为收货地址"></a>
+                                            <a th:href="@{/address/del(id=${address.id})}"><input type="button" class="button editNum" value="删除"></a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </form>
+                            <div class="control-cart">
+                                <button id="triggerBtn" class="button">添加地址</button>
+                                <div id="myModal" class="modal">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <span id="closeBtn" class="close">×</span>
+                                        </div>
+                                        <div class="modal-bady">
+                                            <!-- 添加需要的原件-->
+                                            <form th:action="@{/address/add}" th:method="post">
+                                                <label>地址</label>
+                                                <label>
+                                                    <input type="text" th:value="${address}" name="address" class="input-form">
+                                                </label><br/>
+                                                <label>联系电话</label>
+                                                <label>
+                                                    <input type="text" th:value="${mobile}" name="mobile" class="input-form">
+                                                </label><br/>
+                                                <div class="modal-footer">
+                                                    <input class="btn btn-outline-dark" type="submit" value="commit">
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+<footer class="footer style7">
+    <div class="container">
+        <div class="container-wapper">
+            <div class="row">
+                <div class="box-footer col-xs-12 col-sm-4 col-md-4 col-lg-4 hidden-sm hidden-md hidden-lg">
+                    <div class="dungar-newsletter style1">
+                        <div class="newsletter-head">
+                            <h3 class="title">Newsletter</h3>
+                        </div>
+                        <div class="newsletter-form-wrap">
+                            <div class="list">
+                                Sign up for our free video course and <br/> urban garden inspiration
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <div class="dungar-custommenu default">
+                        <h2 class="widgettitle">Quick Menu</h2>
+                        <ul class="menu">
+                            <li class="menu-item">
+                                <a href="gridproducts.html">New arrivals</a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="gridproducts.html">Life style</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box-footer col-xs-12 col-sm-4 col-md-4 col-lg-4 hidden-xs">
+                    <div class="dungar-newsletter style1">
+                        <div class="newsletter-head">
+                            <h3 class="title">Newsletter</h3>
+                        </div>
+                        <div class="newsletter-form-wrap">
+                            <div class="list">
+                                Sign up for our free video course and <br/> urban garden inspiration
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="../../static/assets/js/jquery-1.12.4.min.js"></script>
+<script src="../../static/assets/js/modalBox.js"></script>
+</body>
+</html>

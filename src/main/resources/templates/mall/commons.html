@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>公用静态资源</title>
+</head>
+<body>
+<div th:fragment="commons_resource">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href="@{${#request.getScheme()+'://'+#request.getServerName()+':'+#request.getServerPort()+#request.getContextPath()+'/static/assets/css/bootstrap.min.css'}}" rel="stylesheet" type="text/css">
+    <link th:href="@{${#request.getScheme()+'://'+#request.getServerName()+':'+#request.getServerPort()+#request.getContextPath()+'/static/assets/css/font-awesome.min.css'}}" rel="stylesheet" type="text/css">
+    <link th:href="@{${#request.getScheme()+'://'+#request.getServerName()+':'+#request.getServerPort()+#request.getContextPath()+'/static/assets/css/owl.carousel.min.css'}}" rel="stylesheet" type="text/css">
+    <link th:href="@{${#request.getScheme()+'://'+#request.getServerName()+':'+#request.getServerPort()+#request.getContextPath()+'/static/assets/css/animate.min.css'}}" rel="stylesheet" type="text/css">
+    <link th:href="@{${#request.getScheme()+'://'+#request.getServerName()+':'+#request.getServerPort()+#request.getContextPath()+'/static/assets/css/jquery-ui.css'}}" rel="stylesheet" type="text/css">
+    <link th:href="@{${#request.getScheme()+'://'+#request.getServerName()+':'+#request.getServerPort()+#request.getContextPath()+'/static/assets/css/slick.css'}}" rel="stylesheet" type="text/css">
+    <link th:href="@{${#request.getScheme()+'://'+#request.getServerName()+':'+#request.getServerPort()+#request.getContextPath()+'/static/assets/css/chosen.min.css'}}" rel="stylesheet" type="text/css">
+    <link th:href="@{${#request.getScheme()+'://'+#request.getServerName()+':'+#request.getServerPort()+#request.getContextPath()+'/static/assets/css/pe-icon-7-stroke.css'}}" rel="stylesheet" type="text/css">
+    <link th:href="@{${#request.getScheme()+'://'+#request.getServerName()+':'+#request.getServerPort()+#request.getContextPath()+'/static/assets/css/magnific-popup.min.css'}}" rel="stylesheet" type="text/css">
+    <link th:href="@{${#request.getScheme()+'://'+#request.getServerName()+':'+#request.getServerPort()+#request.getContextPath()+'/static/assets/css/lightbox.min.css'}}" rel="stylesheet" type="text/css">
+    <link th:href="@{${#request.getScheme()+'://'+#request.getServerName()+':'+#request.getServerPort()+#request.getContextPath()+'/static/assets/js/fancybox/source/jquery.fancybox.css'}}" rel="stylesheet" type="text/css">
+    <link th:href="@{${#request.getScheme()+'://'+#request.getServerName()+':'+#request.getServerPort()+#request.getContextPath()+'/static/assets/css/jquery.scrollbar.min.css'}}" rel="stylesheet" type="text/css">
+    <link th:href="@{${#request.getScheme()+'://'+#request.getServerName()+':'+#request.getServerPort()+#request.getContextPath()+'/static/assets/css/mobile-menu.css'}}" rel="stylesheet" type="text/css">
+    <link th:href="@{${#request.getScheme()+'://'+#request.getServerName()+':'+#request.getServerPort()+#request.getContextPath()+'/static/assets/fonts/flaticon/flaticon.css'}}" rel="stylesheet" type="text/css">
+    <link th:href="@{${#request.getScheme()+'://'+#request.getServerName()+':'+#request.getServerPort()+#request.getContextPath()+'/static/assets/css/style1.css'}}" rel="stylesheet" type="text/css">
+</div>
+<!--http://localhost:8081-->
+<h2 th:text="${#request.getScheme()}+'://'+${#request.getServerName()}+':'+${#request.getServerPort()}+${#request.getContextPath()}"></h2>
+<div th:fragment="commons_js">
+    <script type="text/javascript" th:src="@{${#request.getScheme()+'://'+#request.getServerName()+':'+#request.getServerPort()+#request.getContextPath()+'/static/assets/js/jquery-1.12.4.min.js'}}"></script>
+    <script type="text/javascript" th:src="@{${#request.getScheme()+'://'+#request.getServerName()+':'+#request.getServerPort()+#request.getContextPath()+'/static/assets/js/jquery.plugin-countdown.min.js'}}"></script>
+    <script type="text/javascript" th:src="@{${#request.getScheme()+'://'+#request.getServerName()+':'+#request.getServerPort()+#request.getContextPath()+'/static/assets/js/jquery-countdown.min.js'}}"></script>
+    <script type="text/javascript" th:src="@{${#request.getScheme()+'://'+#request.getServerName()+':'+#request.getServerPort()+#request.getContextPath()+'/static/assets/js/bootstrap.min.js'}}"></script>
+    <script type="text/javascript" th:src="@{${#request.getScheme()+'://'+#request.getServerName()+':'+#request.getServerPort()+#request.getContextPath()+'/static/assets/js/owl.carousel.min.js'}}"></script>
+    <script type="text/javascript" th:src="@{${#request.getScheme()+'://'+#request.getServerName()+':'+#request.getServerPort()+#request.getContextPath()+'/static/assets/js/magnific-popup.min.js'}}"></script>
+    <script type="text/javascript" th:src="@{${#request.getScheme()+'://'+#request.getServerName()+':'+#request.getServerPort()+#request.getContextPath()+'/static/assets/js/isotope.min.js'}}"></script>
+    <script type="text/javascript" th:src="@{${#request.getScheme()+'://'+#request.getServerName()+':'+#request.getServerPort()+#request.getContextPath()+'/static/assets/js/jquery.scrollbar.min.js'}}"></script>
+    <script type="text/javascript" th:src="@{${#request.getScheme()+'://'+#request.getServerName()+':'+#request.getServerPort()+#request.getContextPath()+'/static/assets/js/jquery-ui.min.js'}}"></script>
+    <script type="text/javascript" th:src="@{${#request.getScheme()+'://'+#request.getServerName()+':'+#request.getServerPort()+#request.getContextPath()+'/static/assets/js/mobile-menu.min.js'}}"></script>
+    <script type="text/javascript" th:src="@{${#request.getScheme()+'://'+#request.getServerName()+':'+#request.getServerPort()+#request.getContextPath()+'/static/assets/js/chosen.min.js'}}"></script>
+    <script type="text/javascript" th:src="@{${#request.getScheme()+'://'+#request.getServerName()+':'+#request.getServerPort()+#request.getContextPath()+'/static/assets/js/slick.min.js'}}"></script>
+    <script type="text/javascript" th:src="@{${#request.getScheme()+'://'+#request.getServerName()+':'+#request.getServerPort()+#request.getContextPath()+'/static/assets/js/jquery.elevateZoom.min.js'}}"></script>
+    <script type="text/javascript" th:src="@{${#request.getScheme()+'://'+#request.getServerName()+':'+#request.getServerPort()+#request.getContextPath()+'/static/assets/js/jquery.actual.min.js'}}"></script>
+    <script type="text/javascript" th:src="@{${#request.getScheme()+'://'+#request.getServerName()+':'+#request.getServerPort()+#request.getContextPath()+'/static/assets/js/fancybox/source/jquery.fancybox.js'}}"></script>
+    <script type="text/javascript" th:src="@{${#request.getScheme()+'://'+#request.getServerName()+':'+#request.getServerPort()+#request.getContextPath()+'/static/assets/js/lightbox.min.js'}}"></script>
+    <script type="text/javascript" th:src="@{${#request.getScheme()+'://'+#request.getServerName()+':'+#request.getServerPort()+#request.getContextPath()+'/static/assets/js/owl.thumbs.min.js'}}"></script>
+    <script type="text/javascript" th:src="@{${#request.getScheme()+'://'+#request.getServerName()+':'+#request.getServerPort()+#request.getContextPath()+'/static/assets/js/jquery.scrollbar.min.js'}}"></script>
+    <script type="text/javascript" th:src="@{${#request.getScheme()+'://'+#request.getServerName()+':'+#request.getServerPort()+#request.getContextPath()+'/static/assets/js/frontend-plugin.js'}}"></script>
+</div>
+</body>
+</html>

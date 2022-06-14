@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8" />
+        <title>懒人商城后台系统</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta content="A premium admin dashboard template by mannatthemes" name="description" />
+        <meta content="Mannatthemes" name="author" />
+
+        <link rel="shortcut icon" href="../../static/assets/images/favicon.ico">
+
+        <link href="../../static/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="../../static/assets/css/icons.css" rel="stylesheet" type="text/css" />
+        <link href="../../static/assets/css/metismenu.min.css" rel="stylesheet" type="text/css" />
+        <link href="../../static/assets/css/style.css" rel="stylesheet" type="text/css" />
+
+    </head>
+
+    <body>
+        <div class="topbar">
+             <nav class="navbar-custom">
+                <div class="topbar-left">
+                    <a href="index.html" class="logo">
+                        <span>
+                            <img src="../../static/assets/images/logo-sm.png" alt="logo-small" class="logo-sm">
+                        </span>
+                        <span>
+                            <img src="../../static/assets/images/logo-dark.png" alt="logo-large" class="logo-lg">
+                        </span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+
+        <div class="page-wrapper-img">
+            <div class="page-wrapper-img-inner">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="page-title-box">
+                            <h4 class="page-title mb-2"><i class="mdi mdi-format-list-checkbox mr-2"></i>404</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="page-wrapper">
+            <div class="page-wrapper-inner">
+                <div class="page-content">
+                    <div class="container-fluid"> 
+                        <div class="row">
+                            <div class="col-md-6 mx-auto">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-5 p-0 align-self-center">
+                                                <img src="assets/images/error.svg" alt="" class="img-fluid">
+                                            </div>
+                                            <div class="col-md-7">
+                                                <div class="error-content text-center">
+                                                    <h1 class="">404!</h1>
+                                                    <h4 class="text-primary" th:text="${message}">Looks like you've got lost...</h4><br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <title>懒人商城后台系统</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="A premium admin dashboard template by mannatthemes" name="description" />
+    <meta content="Mannatthemes" name="author" />
+
+    <link rel="shortcut icon" href="../../static/images/favicon.ico">
+
+    <link href="../../static/assets/plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../static/assets/plugins/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="../../static/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../static/assets/css/icons.css" rel="stylesheet" type="text/css" />
+    <link href="../../static/assets/css/metismenu.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../static/assets/css/style.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+<div class="topbar">
+    <nav class="navbar-custom">
+        <div class="topbar-left">
+            <a href="index.html" class="logo">
+                        <span>
+                            <img src="../../static/assets/images/logo-sm.png" alt="logo-small" class="logo-sm">
+                        </span>
+                <span>
+                            <img src="../../static/assets/images/logo-dark.png" alt="logo-large" class="logo-lg">
+                        </span>
+            </a>
+        </div>
+    </nav>
+</div>
+<div class="page-wrapper-img">
+    <div class="page-wrapper-img-inner">
+        <div class="sidebar-user media">
+            <div class="media-body">
+                <h5 class="text-light" th:text="${session.username}">Mr. Michael Hill </h5>
+                <ul class="list-unstyled list-inline mb-0 mt-2">
+                    <li class="list-inline-item">
+                        <a th:href="@{/user/admin/exit}" class=""><i class="mdi mdi-power text-danger"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box">
+                    <div class="float-right align-item-center mt-2">
+                        <button id="add_c" class="btn btn-info px-4 align-self-center report-btn">增加商品种类</button>
+                        <button id="del_c" class="btn btn-info px-4 align-self-center report-btn">删除商品种类</button>
+                    </div>
+                    <h4 class="page-title mb-2"><i class="mdi mdi-format-list-checkbox mr-2"></i>商品种类管理系统</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-wrapper">
+    <div class="page-wrapper-inner">
+         <div class="left-sidenav">
+            <ul class="metismenu left-sidenav-menu" id="side-nav">
+                <li class="menu-title">Main</li>
+                <li>
+                    <ul class="nav-second-level" aria-expanded="false">
+                        <li>
+                            <a href="/user/admin/all">用户管理<span class="menu-arrow left-has-menu"><i class="mdi mdi-chevron-right"></i></span></a>
+                            <a href="/admin/getAllCategory/1">商品种类管理<span class="menu-arrow left-has-menu"><i class="mdi mdi-chevron-right"></i></span></a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="page-content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <h4 class="mt-0 header-title">当前种类级别列表</h4>
+                                <p class="text-muted mb-4 font-13">
+                                            <span>
+                                                <a th:href="@{/admin/getAllCategory/1}">第一级商品种类  >  </a>
+                                                <a th:if="${firstCategory}!=null" th:href="@{/admin/getCurrentCategory/{categoryId}(categoryId=${firstCategory.categoryId})}" th:text="${firstCategory.getCategoryName()}+'  >  '">></a>
+                                                <a th:if="${secondCategory}!=null" th:href="@{/admin/getCurrentCategory/{categoryId}(categoryId=${secondCategory.categoryId})}" th:text="${secondCategory.getCategoryName()}+'  >  '"></a>
+                                                <a th:if="${thirdCategory}!=null" th:href="@{/admin/getCurrentCategory/{categoryId}(categoryId=${thirdCategory.categoryId})}" th:text="${thirdCategory.getCategoryName()}+'  >  '"></a>
+                                            </span>
+                                </p>
+
+                                <table id="category_table" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                    <thead>
+                                    <tr>
+                                        <th>选择</th>
+                                        <th>商品种类ID</th>
+                                        <th>商品种类名字</th>
+                                        <th>父类ID</th>
+                                        <th>种类等级</th>
+                                        <th>action</th>
+                                    </tr>
+                                    </thead>
+
+
+                                    <tbody>
+                                    <tr th:each="item:${categories}">
+                                        <td>
+                                            <input type="checkbox" th:value="${item.categoryId}">
+                                        </td>
+                                        <td th:text="${item.categoryId}"></td>
+                                        <td>
+                                            <p class="d-inline-block align-middle mb-0">
+                                                <a th:href="@{/admin/getCurrentCategory/{categoryId}(categoryId=${item.categoryId})}" class="d-inline-block align-middle mb-0 product-name" th:text="${item.categoryName}">Adidas Footboll</a>
+                                            </p>
+                                        </td>
+                                        <td th:text="${item.parentId}">null</td>
+                                        <td th:text="${item.categoryLevel}">Sports</td>
+                                        <td>
+                                            <a class="btn btn-outline-secondary btn-sm" th:href="@{/admin/getDetailCategory/{categoryId}(categoryId=${item.categoryId})}" target="_blank"><i class="far fa-edit"></i></a>
+                                        </td>
+
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../../static/assets/js/jquery.min.js"></script>
+<script>
+    $("#add_c").click(function (){
+        //通过控制层页面跳转
+        window.open("/admin/goAddCategory","_blank");//打开一个新窗口
+    });
+    $("#del_c").click(function (){
+        let ids=[];
+        let chkBoxes=$("#category_table").find("input:checkbox:checked");
+        $(chkBoxes).each(function (){
+            let id=$(this).attr("value");
+            ids.push(id);
+        });
+        $.ajax({
+            url: "/admin/delCategory",
+            type: "POST",
+            data: {"ids": ids},
+            dataType: "json",
+            success: function (data){
+                alert(data.message);
+            },
+            error: function (xhr) {
+                alert(xhr.message);
+            }
+        });
+    });
+</script>
+</body>
+</html>

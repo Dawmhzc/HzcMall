@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>种类添加</title>
+    <link href="../../static/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="../../static/assets/css/style1.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<header class="header style7">
+    <div class="top-bar" style="background-color: #0B2C5F">
+        <div class="container">
+            <div class="top-bar-left">
+            </div>
+            <div class="top-bar-right">
+
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <h2>商品种类添加界面</h2>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">商品种类等级</font></font></label>
+            <input id="categoryLevel" type="text" placeholder="商品种类等级" class="form-control">
+        </div>
+        <div class="form-group col-md-4">
+            <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">商品种类名字</font></font></label>
+            <input id="categoryName" type="text" placeholder="商品种类名字" class="form-control">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">父节点Id</font></font></label>
+            <input id="parentId" type="text" placeholder="父节点Id" class="form-control">
+        </div>
+    </div>
+
+    <button class="btn btn-primary" id="addCategory"> 保存 </button>
+</div>
+<script type="text/javascript" src="../../static/assets/js/jquery.min.js"></script>
+<script>
+    $("#addCategory").click(function (){
+       let categoryLevel=$("#categoryLevel").val();
+       let categoryName=$("#categoryName").val();
+       let parentId=$("#parentId").val();
+       $.ajax({
+           url: "/admin/saveCategory",
+           type: "POST",
+           data: {"categoryLevel": categoryLevel,"categoryName": categoryName,"parentId": parentId,},
+           dataType: "json",
+           success: function (data){
+               alert(data.message);
+           },
+           error: function (xhr){
+               alert(xhr.message);
+           }
+       });
+    });
+</script>
+</body>
+</html>

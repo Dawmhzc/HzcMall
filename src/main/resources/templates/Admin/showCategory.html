@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>查看商品种类</title>
+    <div th:replace="mall/commons :: commons_resource"></div>
+</head>
+<body>
+<header class="header style7">
+    <div class="top-bar" style="background-color: #0B2C5F">
+        <div class="container">
+            <div class="top-bar-left">
+            </div>
+            <div class="top-bar-right">
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <h2>种类信息信息展示</h2>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">商品种类等级</font></font></label>
+            <input id="categoryLevel" type="text" class="form-control" placeholder="商品种类等级" readonly="readonly" th:value="${detailCategory.categoryLevel}">
+        </div>
+        <div class="form-group col-md-4">
+            <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">商品种类名字</font></font></label>
+            <input id="categoryName" type="text" placeholder="商品种类名字" class="form-control" th:value="${detailCategory.categoryName}">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">商品种类ID</font></font></label>
+            <input id="categoryId" type="text" placeholder="商品种类ID" readonly="readonly" class="form-control" th:value="${detailCategory.categoryId}">
+        </div>
+        <div class="form-group col-md-4">
+            <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">父节点Id</font></font></label>
+            <input id="parentId" type="text" placeholder="父节点Id" class="form-control" readonly="readonly" th:value="${detailCategory.parentId}">
+        </div>
+    </div>
+
+    <button class="btn btn-primary" id="edit"> 保存 </button>
+</div>
+<script type="text/javascript" src="../../static/assets/js/jquery.min.js"></script>
+<script>
+    $("#edit").click(function (){
+       let categoryId=$("#categoryId").val();
+       let categoryLevel=$("#categoryLevel").val();
+       let categoryName=$("#categoryName").val();
+       $.ajax({
+           url: "/admin/updateCategory",
+           type: "POST",
+           data: {"categoryId": categoryId,"categoryLevel": categoryLevel,"categoryName": categoryName},
+           dataType: "json",
+           success: function (data){
+               alert(data.message);
+           },
+           error: function (xhr){
+               alert(xhr.message);
+           }
+       })
+    });
+</script>
+</body>
+</html>

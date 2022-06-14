@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>懒人电商</title>
+    <div th:replace="mall/commons :: commons_resource"></div>
+</head>
+<body>
+<header class="header style7">
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-left">
+                <div class="header-message">
+                    欢迎来到懒人商城！
+                </div>
+            </div>
+            <div class="top-bar-right">
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <h2>价格波动</h2>
+    <div id="main" style="width: 600px;height: 400px;"></div>
+</div>
+<script src="../../static/assets/js/jquery.min.js"></script>
+<script src="../../static/assets/js/echarts.min.js"></script>
+<script th:inline="javascript">
+    $(document).ready(function (){
+        let name=['a','b','c','d','e'];
+        let value=[5,12,13,14,40];
+        let x=0;
+        /*<![CDATA[*/
+        name = [[${name}]];
+        value = [[${value}]];
+        x=[[${size}]];
+        /*]]>*/
+        var myechart=echarts.init(document.getElementById("main"));
+        var option={
+            title: {
+                text: '价值波动'
+            },
+            tooltip: {},
+            legend: {//图例组件展现了不同系列的标记(symbol)，颜色和名字。可以通过点击图例控制哪些系列不显示。
+                data: [name]
+            },
+            xAxis: {
+                data: x
+            },
+            yAxis: {},
+            series: [{name: name, type: 'line', data: value}]//type:bar表示为柱状图
+        };
+        myechart.setOption(option);
+        window.addEventListener("resize", function() {
+            myechart.resize();
+        });
+    });
+</script>
+</body>
+</html>

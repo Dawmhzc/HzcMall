@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>修改订单信息</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="../../static/assets/images/favicon.png"/>
+    <link rel="stylesheet" href="../../static/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../static/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../static/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../../static/assets/css/animate.min.css">
+    <link rel="stylesheet" href="../../static/assets/css/jquery-ui.css">
+    <link rel="stylesheet" href="../../static/assets/css/slick.css">
+    <link rel="stylesheet" href="../../static/assets/css/chosen.min.css">
+    <link rel="stylesheet" href="../../static/assets/css/pe-icon-7-stroke.css">
+    <link rel="stylesheet" href="../../static/assets/css/magnific-popup.min.css">
+    <link rel="stylesheet" href="../../static/assets/css/lightbox.min.css">
+    <link rel="stylesheet" href="../../static/assets/js/fancybox/source/jquery.fancybox.css">
+    <link rel="stylesheet" href="../../static/assets/css/jquery.scrollbar.min.css">
+    <link rel="stylesheet" href="../../static/assets/css/mobile-menu.css">
+    <link rel="stylesheet" href="../../static/assets/fonts/flaticon/flaticon.css">
+    <link rel="stylesheet" href="../../static/assets/css/style1.css">
+</head>
+<body class="inblog-page">
+<header class="header style7">
+    <div class="top-bar" style="background-color: #0B2C5F">
+        <div class="container">
+            <div class="top-bar-left">
+                <div class="header-message">
+                </div>
+            </div>
+            <div class="top-bar-right">
+                <ul class="header-user-links">
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</header>
+<div class="main-content main-content-login">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-trail breadcrumbs">
+                    <ul class="trail-items breadcrumb">
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="content-area col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="site-main">
+                    <h3 class="custom_blog_title">
+                        订单信息修改
+                    </h3>
+                    <div class="customer_login">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="login-item">
+                                    <form th:action="@{/order/admin/upd}" th:method="post" class="register">
+                                        <p class="form-row form-row-wide">
+                                            <label class="text">id</label>
+                                            <input th:value="${ordId}" name="ordId" readonly="readonly" type="text" class="input-text">
+                                        </p>
+                                        <p class="form-row form-row-wide" style="display: none">
+                                            <label class="text">id</label>
+                                            <input th:value="${ordShopId}" name="ordShopId" readonly="readonly" type="text" class="input-text">
+                                        </p>
+                                        <p class="form-row form-row-wide">
+                                            <label class="text">商品名</label>
+                                            <input th:value="${ordGoodsName}" name="ordGoodName" readonly="readonly" type="text" class="input-text">
+                                        </p>
+                                        <p class="form-row form-row-wide">
+                                            <label class="text">商品数目</label>
+                                            <input th:value="${ordGoodsNumb}" name="ordGoodNumb"  type="text" class="input-text">
+                                        </p>
+                                        <p class="form-row form-row-wide">
+                                            <label class="text">价格</label>
+                                            <input th:value="${ordTotal}" name="ordTotal" type="text" readonly="readonly" class="input-text">
+                                        </p>
+                                        <p class="form-row form-row-wide">
+                                            <label class="text">购买id</label>
+                                            <input th:value="${ordUserId}" name="ordUserId" type="text" readonly="readonly" class="input-text">
+                                        </p>
+                                        <p class="form-row form-row-wide">
+                                            <label class="text">收货地址</label>
+                                            <input th:value="${ordAddress}" name="ordAddress" type="text" class="input-text">
+                                        </p>
+                                        <p class="form-row form-row-wide">
+                                            <label class="text">联系电话</label>
+                                            <input th:value="${ordMobile}" name="ordMobile" type="text" class="input-text">
+                                        </p>
+                                        <p class="form-row form-row-wide">
+                                            <label class="text">购买时间</label>
+                                            <input th:value="${ordBuyTime}" name="ordBuyTime" readonly="readonly" type="text" class="input-text">
+                                        </p>
+                                        <p class="">
+                                            <button type="submit" class="btn btn-primary" id="addCategory"> 保存 </button>
+                                        </p>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

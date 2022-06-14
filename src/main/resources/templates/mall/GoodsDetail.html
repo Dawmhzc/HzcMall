@@ -1,0 +1,284 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>懒人电商</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="../../staitc/assets/images/favicon.png"/>
+    <link rel="stylesheet" href="../../static/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../static/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../static/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../../static/assets/css/animate.min.css">
+    <link rel="stylesheet" href="../../static/assets/css/jquery-ui.css">
+    <link rel="stylesheet" href="../../static/assets/css/slick.css">
+    <link rel="stylesheet" href="../../static/assets/css/chosen.min.css">
+    <link rel="stylesheet" href="../../static/assets/css/pe-icon-7-stroke.css">
+    <link rel="stylesheet" href="../../static/assets/css/magnific-popup.min.css">
+    <link rel="stylesheet" href="../../static/assets/css/lightbox.min.css">
+    <link rel="stylesheet" href="../../static/assets/js/fancybox/source/jquery.fancybox.css">
+    <link rel="stylesheet" href="../../static/assets/css/jquery.scrollbar.min.css">
+    <link rel="stylesheet" href="../../static/assets/css/mobile-menu.css">
+    <link rel="stylesheet" href="../../static/assets/fonts/flaticon/flaticon.css">
+    <link rel="stylesheet" href="../../static/assets/css/style1.css">
+</head>
+<body class="details-page">
+<header class="header style7">
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-left">
+                <div class="header-message">
+                    欢迎来到懒人商城！
+                </div>
+            </div>
+            <div class="top-bar-right">
+                <ul class="header-user-links">
+                    <li th:if="${session.userId} eq null">
+                        <a th:href="@{/login}">Login or Register</a>
+                    </li>
+                    <li th:if="${session.userId} ne null">
+                        <a th:href="@{/user/exit}" th:text="${session.username}">Login or Register</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="main-header">
+            <div class="row">
+                <div class="col-lg-3 col-sm-4 col-md-3 col-xs-7 col-ts-12 header-element">
+                    <div class="logo">
+                        <img src="../../static/assets/images/logo.png" alt="img">
+                    </div>
+                </div>
+                <div class="col-lg-7 col-sm-8 col-md-6 col-xs-5 col-ts-12">
+                    <div class="block-search-block">
+                        <form class="form-search form-search-width-category">
+                            <div class="form-content">
+                                <div class="inner">
+                                    <input type="text" class="input" name="s" value="">
+                                </div>
+                                <button class="btn-search" type="submit">
+                                    <span class="icon-search"></span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header-nav-container">
+        <div class="container">
+            <div class="header-nav-wapper main-menu-wapper">
+                <div class="vertical-wapper block-nav-categori">
+                    <div class="block-title">
+						<span class="icon-bar">
+							<span></span>
+							<span></span>
+							<span></span>
+						</span>
+                        <span class="text">All Categories</span>
+                    </div>
+                </div>
+                <div class="header-nav">
+                    <div class="container-wapper">
+                        <ul class="dungar-clone-mobile-menu dungar-nav main-menu " id="menu-main-menu">
+                            <li class="menu-item  menu-item-has-children">
+                                <a th:href="@{/}" class="dungar-menu-item-title" title="Home">  首页  </a>
+                            </li>
+                            <li class="menu-item menu-item-has-children">
+                                <a th:href="@{/goods/getGoodsList}" class="dungar-menu-item-title" title="Shop">  商品  </a>
+                            </li>
+                            <li class="menu-item menu-item-has-children">
+                                <a th:href="@{/shopCart/showShopCartList/}" class="dungar-menu-item-title" title="Pages">  购物车  </a>
+                            </li>
+                            <li class="menu-item menu-item-has-children">
+                                <a th:href="@{/order/getall}" class="dungar-menu-item-title" title="Pages">  订单  </a>
+                            </li>
+                            <li class="menu-item menu-item-has-children">
+                                <a th:href="@{/address/all}" class="dungar-menu-item-title" title="Pages">  收货地址  </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="main-content main-content-details single no-sidebar">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-trail breadcrumbs">
+                    <ul class="trail-items breadcrumb">
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="content-area content-details full-width col-lg-9 col-md-8 col-sm-12 col-xs-12">
+                <div class="site-main">
+                    <div class="details-product">
+                        <div class="details-thumd">
+                            <div class="image-preview-container image-thick-box image_preview_container">
+                                <img id="img_zoom" data-zoom-image="assets/images/details-item-1.jpg"
+                                     th:src="@{${'../../static/img/'}+${goods.goodsImg}}" alt="img">
+
+                                <a href="#" class="btn-zoom open_qv"><i class="fa fa-search" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                        <div class="details-infor">
+                            <h6 style="display: none" th:text="${goods.goodsId}"></h6>
+                            <h1 class="product-title" th:text="${goods.goodsName}">
+                                Homepod Mini
+                            </h1>
+                            <div class="price">
+                                <span th:text="'$'+${goods.sellingPrice}">$45</span>
+                                <del th:text="'$'+${goods.originalPrice}">$180.00</del>
+                            </div>
+                            <div class="product-details-description">
+                                <ul>
+                                    <li th:text="'商家ID :'+${goods.createUser}">Vestibulum tortor quam</li>
+                                    <li th:text="'库存 :'+${goods.stockNum}+'件'">Imported</li>
+                                    <li th:text="'上货时间:'+${goods.createTime}">Art.No. 06-7680</li>
+                                </ul>
+                            </div>
+                            <div class="variations">
+                                <div class="attribute attribute_size">
+                                </div>
+                            </div>
+                            <div class="group-button">
+                                <div class="quantity-add-to-cart">
+                                    <div class="quantity">
+                                        <div class="control">
+                                            <input type="text" data-step="1" data-min="0" value="1" title="Qty"
+                                                   class="input-qty qty" size="4" id="example-number-input">
+                                        </div>
+                                    </div>
+                                    <button id="addCart" class="single_add_to_cart_button button">添加购物车</button>
+                                    <button id="addTimeCart" class="single_add_to_cart_button button">添加自动购物</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-details-product">
+                        <ul class="tab-link">
+                            <li class="active">
+                                <a data-toggle="tab" aria-expanded="true" href="#product-descriptions">Descriptions </a>
+                            </li>
+                        </ul>
+                        <div class="tab-container">
+                            <div id="product-descriptions" class="tab-panel active">
+                                <p th:text="${goods.goodsIntro}">
+                                    show goods detail
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer style7">
+    <div class="container">
+        <div class="container-wapper">
+            <div class="row">
+                <div class="box-footer col-xs-12 col-sm-4 col-md-4 col-lg-4 hidden-sm hidden-md hidden-lg">
+                    <div class="dungar-newsletter style1">
+                        <div class="newsletter-head">
+                            <h3 class="title">开发人员</h3>
+                        </div>
+                        <div class="newsletter-form-wrap">
+                            <div class="list">
+                                黄智超 吴少波 李黄斌 <br/> 苏振锋 张腾辉 李超凡
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <div class="dungar-custommenu default">
+                        <h2 class="widgettitle"></h2>
+                        <ul class="menu">
+                            <li class="menu-item"></li>
+                            <li class="menu-item"></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box-footer col-xs-12 col-sm-4 col-md-4 col-lg-4 hidden-xs">
+                    <div class="dungar-newsletter style1">
+                        <div class="newsletter-head">
+                            <h3 class="title">联系我们</h3>
+                        </div>
+                        <div class="newsletter-form-wrap">
+                            <div class="list">
+                                电话:19959739899 <br/> 邮箱:904096333@qq.com
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<script type="text/javascript" src="../../static/assets/js/jquery.min.js"></script>
+<script th:src="@{../../static/mall/js/jquery.plugin-countdown.min.js}"></script>
+<script th:src="@{../../static/mall/js/jquery-countdown.min.js}"></script>
+<script th:src="@{../../static/mall/js/bootstrap.min.js}"></script>
+<script th:src="@{../../static/mall/js/owl.carousel.min.js}"></script>
+<script th:src="@{../../static/mall/js/magnific-popup.min.js}"></script>
+<script th:src="@{../../static/mall/js/isotope.min.js}"></script>
+<script th:src="@{../../static/mall/js/jquery.scrollbar.min.js}"></script>
+<script th:src="@{../../static/mall/js/jquery-ui.min.js}"></script>
+<script th:src="@{../../static/mall/js/mobile-menu.min.js}"></script>
+<script th:src="@{../../static/mall/js/chosen.min.js}"></script>
+<script th:src="@{../../static/mall/js/slick.min.js}"></script>
+<script th:src="@{../../static/mall/js/jquery.elevateZoom.min.js}"></script>
+<script th:src="@{../../static/mall/js/jquery.actual.min.js}"></script>
+<script th:src="@{../../static/mall/js/fancybox/source/jquery.fancybox.js}"></script>
+<script th:src="@{../../static/mall/js/lightbox.min.js}"></script>
+<script th:src="@{../../static/mall/js/owl.thumbs.min.js}"></script>
+<script th:src="@{../../static/mall/js/jquery.scrollbar.min.js}"></script>
+<script th:src="@{../../static/mall/js/frontend-plugin.js}"></script>
+<script type="text/javascript">
+    $("#addCart").click(function (){
+        let goodsId=$(this).parents(".details-infor").find("h6").text();
+        let goodsCount=$("#example-number-input").val();
+        console.log(goodsId);
+        $.ajax({
+            url: "/shopCart/addShopCart",
+            type: "POST",
+            data: {"goodsId": goodsId, "goodsCount": goodsCount},
+            dataType: "json",
+            success: function (data){
+                alert(data.message);
+            },
+            error: function (xhr) {
+                alert(xhr.message);
+            }
+        });
+    });
+</script>
+<script>
+    $("#addTimeCart").click(function (){
+        let goodsId=$(this).parents(".details-infor").find("h6").text();
+        let goodsCount=$("#example-number-input").val();
+        console.log(goodsId+":"+goodsCount);
+        $.ajax({
+            url: "/time/add",
+            type: "POST",
+            data: {"goodsId": goodsId, "goodsCount": goodsCount},
+            dataType: "json",
+            success: function (data){
+                alert(data.message);
+            },
+            error: function (xhr) {
+                alert(xhr.message);
+            }
+        });
+    })
+</script>
+
+</body>
+</html>

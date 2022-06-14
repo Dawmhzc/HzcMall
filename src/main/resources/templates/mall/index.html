@@ -1,0 +1,588 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>懒人电商</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="../../static/assets/images/favicon.png"/>
+    <link rel="stylesheet" th:href="@{../../static/assets/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{../../static/assets/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{../../static/assets/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{../../static/assets/css/animate.min.css}">
+    <link rel="stylesheet" th:href="@{../../static/assets/css/jquery-ui.css}">
+    <link rel="stylesheet" th:href="@{../../static/assets/css/slick.css}">
+    <link rel="stylesheet" th:href="@{../../static/assets/css/chosen.min.css}">
+    <link rel="stylesheet" th:href="@{../../static/assets/css/pe-icon-7-stroke.css}">
+    <link rel="stylesheet" th:href="@{../../static/assets/css/magnific-popup.min.css}">
+    <link rel="stylesheet" th:href="@{../../static/assets/css/lightbox.min.css}">
+    <link rel="stylesheet" th:href="@{../../static/assets/js/fancybox/source/jquery.fancybox.css}">
+    <link rel="stylesheet" th:href="@{../../static/assets/css/jquery.scrollbar.min.css}">
+    <link rel="stylesheet" th:href="@{../../static/assets/css/mobile-menu.css}">
+    <link rel="stylesheet" th:href="@{../../static/assets/fonts/flaticon/flaticon.css}">
+    <link rel="stylesheet" th:href="@{../../static/assets/css/style1.css}">
+</head>
+<body class="home">
+<header class="header style7">
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-left">
+                <div class="header-message">
+                    欢迎来到懒人商城！
+                </div>
+            </div>
+            <div class="top-bar-right">
+                <ul class="header-user-links">
+                    <li th:if="${session.userId} eq null">
+                        <a th:href="@{/login}">Login or Register</a>
+                    </li>
+                    <li th:if="${session.userId} ne null">
+                        <a th:href="@{/user/exit}" th:text="${session.username}">Login or Register</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="main-header">
+            <div class="row">
+                <div class="col-lg-3 col-sm-4 col-md-3 col-xs-7 col-ts-12 header-element">
+                    <div class="logo">
+                        <img src="../../static/assets/images/logo.png" alt="img">
+                    </div>
+                </div>
+                <div class="col-lg-7 col-sm-8 col-md-6 col-xs-5 col-ts-12">
+                    <div class="block-search-block">
+                        <form class="form-search form-search-width-category">
+                            <div class="form-content">
+                                <div class="inner">
+                                    <input type="text" class="input" name="s" value="">
+                                </div>
+                                <button class="btn-search" type="submit">
+                                    <span class="icon-search"></span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header-nav-container">
+        <div class="container">
+            <div class="header-nav-wapper main-menu-wapper">
+                <div class="vertical-wapper block-nav-categori">
+                    <div class="block-title">
+						<span class="icon-bar">
+							<span></span>
+							<span></span>
+							<span></span>
+						</span>
+                        <span class="text">All Categories</span>
+                    </div>
+                </div>
+                <div class="header-nav">
+                    <div class="container-wapper">
+                        <ul class="dungar-clone-mobile-menu dungar-nav main-menu " id="menu-main-menu">
+                            <li class="menu-item  menu-item-has-children">
+                                <a th:href="@{/}" class="dungar-menu-item-title" title="Home">  首页  </a>
+                            </li>
+                            <li class="menu-item menu-item-has-children">
+                                <a th:href="@{/goods/getGoodsList}" class="dungar-menu-item-title" title="Shop">  商品  </a>
+                            </li>
+                            <li class="menu-item menu-item-has-children">
+                                <a th:href="@{/shopCart/showShopCartList/}" class="dungar-menu-item-title" title="Pages">  购物车  </a>
+                            </li>
+                            <li class="menu-item menu-item-has-children">
+                                <a th:href="@{/order/getall}" class="dungar-menu-item-title" title="Pages">  订单  </a>
+                            </li>
+                            <li class="menu-item menu-item-has-children">
+                                <a th:href="@{/address/all}" class="dungar-menu-item-title" title="Pages">  收货地址  </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="main-content">
+    <div class="fullwidth-template">
+        <div class="home-slider style1 rows-space-30">
+            <div class="container">
+                <div class="slider-owl owl-slick equal-container nav-center"
+                     data-slick='{"autoplay":true, "autoplaySpeed":9000, "arrows":true, "dots":false, "infinite":true, "speed":1000, "rows":1}'
+                     data-responsive='[{"breakpoint":"2000","settings":{"slidesToShow":1}}]'>
+                    <div class="slider-item style1">
+                        <div class="slider-inner equal-element">
+                            <div class="slider-infor">
+                                <h5 class="title-small">
+                                    新品上市!
+                                </h5>
+                                <h3 class="title-big">
+                                    pike新品种<br/>
+                                    畅销
+                                </h3>
+                                <div class="price">
+                                    Price from:
+                                    <span class="number-price">
+											$99.90
+										</span>
+                                </div>
+                                <a href="/goods/getDetailMallGoods/24" class="button btn-shop-the-look bgroud-style">Shop now</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slider-item style2">
+                        <div class="slider-inner equal-element">
+                            <div class="slider-infor">
+                                <h5 class="title-small">
+                                    新品上市!
+                                </h5>
+                                <h3 class="title-big">
+                                    pike篮球鞋
+                                </h3>
+                                <div class="price">
+                                    Price from:
+                                    <span class="number-price">
+											$99.90
+										</span>
+                                </div>
+                                <a href="/goods/getDetailMallGoods/25" class="button btn-shop-now">Shop now</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slider-item style3">
+                        <div class="slider-inner equal-element">
+                            <div class="slider-infor">
+                                <h5 class="title-small">
+                                    新品上市!
+                                </h5>
+                                <h3 class="title-big">
+                                    NIke <br/>
+                                    新上市，畅销
+                                </h3>
+                                <div class="price">
+                                    Price from:
+                                    <span class="number-price">
+											$99.90
+										</span>
+                                </div>
+                                <a href="/goods/getDetailMallGoods/23" class="button btn-shop-the-look bgroud-style">Shop now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="banner-wrapp rows-space-35">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="banner">
+                            <div class="item-banner style12">
+                                <div class="inner">
+                                    <div class="banner-content">
+                                        <h3 class="title">购物习惯商铺</h3>
+                                        <div class="description">
+                                            个性分析 <br/>我懂你想要买些什么 !
+                                        </div>
+                                        <a th:href="@{/order/wish}" class="button btn-shop-now">Shop now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="banner">
+                            <div class="item-banner style14">
+                                <div class="inner">
+                                    <div class="banner-content">
+                                        <h4 class="dungar-subtitle">lazy to the end</h4>
+                                        <h3 class="title">只 为<br/>懒到底</h3>
+                                        <div class="code">
+                                            懒也是一种创造力
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="banner">
+                            <div class="item-banner style12 type2">
+                                <div class="inner">
+                                    <div class="banner-content">
+                                        <h3 class="title">定时购物设置</h3>
+                                        <div class="description">
+                                            如果可以 <br/> 让我帮你买些东西吧 ！
+                                        </div>
+                                        <a th:href="@{/time/all}" class="button btn-view-the-look">Shop now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="dungar-tabs  default rows-space-40">
+            <div class="container">
+                <div class="tab-head">
+                    <ul class="tab-link">
+                        <li class="active">
+                            <a data-toggle="tab" aria-expanded="true" href="#bestseller">销售情况最好</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-container">
+                    <div id="bestseller" class="tab-panel active">
+                        <div class="dungar-product">
+                            <ul class="row list-products auto-clear equal-container product-grid">
+                                <li class="product-item  col-lg-3 col-md-4 col-sm-6 col-xs-6 col-ts-12 style-1">
+                                    <div class="product-inner equal-element">
+                                        <div class="product-thumb">
+                                            <div class="thumb-inner">
+                                                <a href="productdetails-fullwidth.html">
+                                                    <img src="../../static/img/4fe27980-b732-4cc2-abb3-2ba58db0ca39.jpg" alt="img">
+                                                </a>
+                                                <div class="thumb-group">
+                                                    <div class="yith-wcwl-add-to-wishlist">
+                                                        <div class="yith-wcwl-add-button">
+                                                            <a href="wishlist.html">Add to Wishlist</a>
+                                                        </div>
+                                                    </div>
+                                                    <a href="#" class="button quick-wiew-button">Quick View</a>
+                                                    <div class="loop-form-add-to-cart">
+                                                        <a href="shoppingcart.html" class="single_add_to_cart_button button">Add to cart
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-info">
+                                            <h5 class="product-name product_title">
+                                                <a href="/goods/getDetailMallGoods/24">pike新品种</a>
+                                            </h5>
+                                            <div class="group-info">
+                                                <div class="price">
+                                                    <del>
+                                                        $100.0
+                                                    </del>
+                                                    <ins>
+                                                        $99.9
+                                                    </ins>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="product-item product-type-variable col-lg-3 col-md-4 col-sm-6 col-xs-6 col-ts-12 style-1">
+                                    <div class="product-inner equal-element">
+                                        <div class="product-top">
+                                            <div class="flash">
+													<span class="onnew">
+														<span class="text">
+															new
+														</span>
+													</span>
+                                            </div>
+                                        </div>
+                                        <div class="product-thumb">
+                                            <div class="thumb-inner">
+                                                <a href="productdetails-fullwidth.html">
+                                                    <img src="../../static/img/46e309d4-bdbb-4399-af24-ddd023740f32.jpg" alt="img">
+                                                </a>
+                                                <div class="thumb-group">
+                                                    <div class="yith-wcwl-add-to-wishlist">
+                                                        <div class="yith-wcwl-add-button">
+                                                            <a href="wishlist.html">Add to Wishlist</a>
+                                                        </div>
+                                                    </div>
+                                                    <a href="#" class="button quick-wiew-button">Quick View</a>
+                                                    <div class="loop-form-add-to-cart">
+                                                        <a href="shoppingcart.html" class="single_add_to_cart_button button">Add to cart
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-info">
+                                            <h5 class="product-name product_title">
+                                                <a href="/goods/getDetailMallGoods/25">pike篮球鞋</a>
+                                            </h5>
+                                            <div class="group-info">
+                                                <div class="stars-rating">
+                                                    <div class="star-rating">
+                                                        <span class="star-3"></span>
+                                                    </div>
+                                                    <div class="count-star">
+                                                        (3)
+                                                    </div>
+                                                </div>
+                                                <div class="price">
+                                                    <del>
+                                                        $100.0
+                                                    </del>
+                                                    <ins>
+                                                        $99.9
+                                                    </ins>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="product-item product-type-variable col-lg-3 col-md-4 col-sm-6 col-xs-6 col-ts-12 style-1">
+                                    <div class="product-inner equal-element">
+                                        <div class="product-top">
+                                            <div class="flash">
+													<span class="onnew">
+														<span class="text">
+															new
+														</span>
+													</span>
+                                            </div>
+                                        </div>
+                                        <div class="product-thumb">
+                                            <div class="thumb-inner">
+                                                <a href="productdetails-fullwidth.html">
+                                                    <img src="../../static/img/54edecda-5445-44ae-a657-c9d8e96fbc9a.jpg" alt="img">
+                                                </a>
+                                                <div class="thumb-group">
+                                                    <div class="yith-wcwl-add-to-wishlist">
+                                                        <div class="yith-wcwl-add-button">
+                                                            <a href="wishlist.html">Add to Wishlist</a>
+                                                        </div>
+                                                    </div>
+                                                    <a href="#" class="button quick-wiew-button">Quick View</a>
+                                                    <div class="loop-form-add-to-cart">
+                                                        <a href="shoppingcart.html" class="single_add_to_cart_button button">Add to cart
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-info">
+                                            <h5 class="product-name product_title">
+                                                <a href="/goods/getDetailMallGoods/23">NIke</a>
+                                            </h5>
+                                            <div class="group-info">
+                                                <div class="stars-rating">
+                                                    <div class="star-rating">
+                                                        <span class="star-3"></span>
+                                                    </div>
+                                                    <div class="count-star">
+                                                        (3)
+                                                    </div>
+                                                </div>
+                                                <div class="price">
+                                                    <del>
+                                                        $100.0
+                                                    </del>
+                                                    <ins>
+                                                        $99.9
+                                                    </ins>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="product-item product-type-variable col-lg-3 col-md-4 col-sm-6 col-xs-6 col-ts-12 style-1">
+                                    <div class="product-inner equal-element">
+                                        <div class="product-top">
+                                            <div class="flash">
+													<span class="onnew">
+														<span class="text">
+															new
+														</span>
+													</span>
+                                            </div>
+                                        </div>
+                                        <div class="product-thumb">
+                                            <div class="thumb-inner">
+                                                <a href="productdetails-fullwidth.html">
+                                                    <img src="../../static/img/90fd93cb-9d19-4f21-8a40-aace56c57161.jpg" alt="img">
+                                                </a>
+                                                <div class="thumb-group">
+                                                    <div class="yith-wcwl-add-to-wishlist">
+                                                        <div class="yith-wcwl-add-button">
+                                                            <a href="wishlist.html">Add to Wishlist</a>
+                                                        </div>
+                                                    </div>
+                                                    <a href="#" class="button quick-wiew-button">Quick View</a>
+                                                    <div class="loop-form-add-to-cart">
+                                                        <a href="shoppingcart.html" class="single_add_to_cart_button button">Add to cart
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-info">
+                                            <h5 class="product-name product_title">
+                                                <a href="/goods/getDetailMallGoods/34">ac女式衬衫</a>
+                                            </h5>
+                                            <div class="group-info">
+                                                <div class="stars-rating">
+                                                    <div class="star-rating">
+                                                        <span class="star-3"></span>
+                                                    </div>
+                                                    <div class="count-star">
+                                                        (3)
+                                                    </div>
+                                                </div>
+                                                <div class="price">
+                                                    <del>
+                                                        $5.0
+                                                    </del>
+                                                    <ins>
+                                                        $4.9
+                                                    </ins>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+        <div class="banner-wrapp rows-space-60">
+            <div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="banner">
+                            <div class="item-banner style6">
+                                <div class="inner">
+                                    <div class="container">
+                                        <div class="banner-content">
+                                            <h4 class="dungar-subtitle">Celebrate Day Sale!</h4>
+                                            <h3 class="title">Save <span>25%</span> Of On All<br/>Items Collection
+                                            </h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<div class="instagram-wrapp">
+    <div>
+        <h3 class="custommenu-title-blog">
+            <i class="flaticon-instagram" aria-hidden="true"></i>
+            Instagram Feed
+        </h3>
+        <div class="dungar-instagram">
+            <div class="instagram owl-slick equal-container"
+                 data-slick='{"autoplay":false, "autoplaySpeed":1000, "arrows":false, "dots":false, "infinite":true, "speed":800, "rows":1}'
+                 data-responsive='[{"breakpoint":"2000","settings":{"slidesToShow":5}},{"breakpoint":"1200","settings":{"slidesToShow":4}},{"breakpoint":"992","settings":{"slidesToShow":3}},{"breakpoint":"768","settings":{"slidesToShow":2}},{"breakpoint":"481","settings":{"slidesToShow":2}}]'>
+                <div class="item-instagram">
+                    <a href="#">
+                        <img src="../../static/assets/images/item-instagram-1.jpg" alt="img">
+                    </a>
+                    <span class="text">
+                        <i class="icon flaticon-instagram" aria-hidden="true"></i>
+			        </span>
+                </div>
+                <div class="item-instagram">
+                    <a href="#">
+                        <img src="../../static/assets/images/item-instagram-2.jpg" alt="img">
+                    </a>
+                    <span class="text">
+                        <i class="icon flaticon-instagram" aria-hidden="true"></i>
+			        </span>
+                </div>
+                <div class="item-instagram">
+                    <a href="#">
+                        <img src="../../static/assets/images/item-instagram-3.jpg" alt="img">
+                    </a>
+                    <span class="text">
+                        <i class="icon flaticon-instagram" aria-hidden="true"></i>
+			        </span>
+                </div>
+                <div class="item-instagram">
+                    <a href="#">
+                        <img src="../../static/assets/images/item-instagram-4.jpg" alt="img">
+                    </a>
+                    <span class="text">
+                        <i class="icon flaticon-instagram" aria-hidden="true"></i>
+			        </span>
+                </div>
+                <div class="item-instagram">
+                    <a href="#">
+                        <img src="../../static/assets/images/item-instagram-5.jpg" alt="img">
+                    </a>
+                    <span class="text">
+                        <i class="icon flaticon-instagram" aria-hidden="true"></i>
+			        </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer style7">
+    <div class="container">
+        <div class="container-wapper">
+            <div class="row">
+                <div class="box-footer col-xs-12 col-sm-4 col-md-4 col-lg-4 hidden-sm hidden-md hidden-lg">
+                    <div class="dungar-newsletter style1">
+                        <div class="newsletter-head">
+                            <h3 class="title">开发人员</h3>
+                        </div>
+                        <div class="newsletter-form-wrap">
+                            <div class="list">
+                                黄智超 吴少波 李黄斌 <br/> 苏振锋 张腾辉 李超凡
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <div class="dungar-custommenu default">
+                        <h2 class="widgettitle"></h2>
+                        <ul class="menu">
+                            <li class="menu-item"></li>
+                            <li class="menu-item"></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="box-footer col-xs-12 col-sm-4 col-md-4 col-lg-4 hidden-xs">
+                    <div class="dungar-newsletter style1">
+                        <div class="newsletter-head">
+                            <h3 class="title">联系我们</h3>
+                        </div>
+                        <div class="newsletter-form-wrap">
+                            <div class="list">
+                                电话:19959739899 <br/> 邮箱:904096333@qq.com
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="../../static/assets/js/jquery-1.12.4.min.js"></script>
+<script src="../../static/assets/js/owl.carousel.min.js"></script>
+<script src="../../static/assets/js/magnific-popup.min.js"></script>
+<script src="../../static/assets/js/isotope.min.js"></script>
+<script src="../../static/assets/js/jquery.scrollbar.min.js"></script>
+<script src="../../static/assets/js/jquery-ui.min.js"></script>
+<script src="../../static/assets/js/mobile-menu.min.js"></script>
+<script src="../../static/assets/js/chosen.min.js"></script>
+<script src="../../static/assets/js/slick.min.js"></script>
+<script src="../../static/assets/js/jquery.elevateZoom.min.js"></script>
+<script src="../../static/assets/js/jquery.actual.min.js"></script>
+<script src="../../static/assets/js/fancybox/source/jquery.fancybox.js"></script>
+<script src="../../static/assets/js/lightbox.min.js"></script>
+<script src="../../static/assets/js/owl.thumbs.min.js"></script>
+<script src="../../static/assets/js/jquery.scrollbar.min.js"></script>
+<script src="../../static/assets/js/frontend-plugin.js"></script>
+</body>
+</html>

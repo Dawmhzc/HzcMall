@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>懒人电商</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="../../static/assets/images/favicon.png"/>
+    <link rel="stylesheet" href="../../static/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../static/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../static/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../../static/assets/css/animate.min.css">
+    <link rel="stylesheet" href="../../static/assets/css/jquery-ui.css">
+    <link rel="stylesheet" href="../../static/assets/css/slick.css">
+    <link rel="stylesheet" href="../../static/assets/css/chosen.min.css">
+    <link rel="stylesheet" href="../../static/assets/css/pe-icon-7-stroke.css">
+    <link rel="stylesheet" href="../../static/assets/css/magnific-popup.min.css">
+    <link rel="stylesheet" href="../../static/assets/css/lightbox.min.css">
+    <link rel="stylesheet" href="../../static/assets/js/fancybox/source/jquery.fancybox.css">
+    <link rel="stylesheet" href="../../static/assets/css/jquery.scrollbar.min.css">
+    <link rel="stylesheet" href="../../static/assets/css/mobile-menu.css">
+    <link rel="stylesheet" href="../../static/assets/fonts/flaticon/flaticon.css">
+    <link rel="stylesheet" href="../../static/assets/css/style1.css">
+</head>
+<body class="inblog-page">
+<header class="header style7">
+    <div class="top-bar" >
+        <div class="container">
+            <div class="top-bar-left">
+                <div class="header-message">
+                    欢迎来到懒人商城！
+                </div>
+            </div>
+            <div class="top-bar-right">
+                <ul class="header-user-links">
+                    <li th:if="${session.userId} eq null">
+                        <a th:href="@{/login}">Login or Register</a>
+                    </li>
+                    <li th:if="${session.userId} ne null">
+                        <a th:href="@{/user/exit}" th:text="${session.username}">Login or Register</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</header>
+<div class="main-content main-content-login">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb-trail breadcrumbs">
+                    <ul class="trail-items breadcrumb">
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="content-area col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="site-main">
+                    <h3 class="custom_blog_title">
+                        Authentication
+                    </h3>
+                    <div class="customer_login">
+                    <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="login-item">
+                                    <form th:action="@{/time/upd}" th:method="post" class="register">
+                                        <p class="form-row form-row-wide" style="display: none">
+                                            <label class="text">id</label>
+                                            <input th:value="${id}" name="id"  type="text" class="input-text">
+                                        </p>
+                                        <p class="form-row form-row-wide">
+                                            <label class="text">商品名</label>
+                                        <div th:text="${goodsName}" type="text" class="input-text">123</div>
+                                        </p>
+                                        <p class="form-row form-row-wide">
+                                            <label class="text">每次购买数目</label>
+                                            <input th:value="${goodsCount}" name="goodsCount"  type="text" class="input-text">
+                                        </p>
+                                        <p class="form-row form-row-wide">
+                                            <label class="text">收货地址</label>
+                                            <input th:value="${address}" name="address" type="text" class="input-text">
+                                        </p>
+                                        <p class="form-row form-row-wide">
+                                            <label class="text">联系电话</label>
+                                            <input th:value="${mobile}" name="mobile" type="text" class="input-text">
+                                        </p>
+                                        <p class="form-row form-row-wide">
+                                            <label class="text">周期间隔:</label><br/>
+                                            <label class="text"><input th:checked="${goTime} == '未设置'" name="goTime" type="radio" th:value="未设置" class="custom-radio">未设置</label><br/>
+                                            <label class="text"><input th:checked="${goTime} == '按月购买'" name="goTime" type="radio" th:value="按月购买" class="custom-radio">按月购买(每月二号)</label><br/>
+                                            <label class="text"><input th:checked="${goTime} == '按周购买'" name="goTime" type="radio" th:value="按周购买" class="custom-radio">按周购买(每周一)</label>
+                                        </p>
+                                        <p class="">
+                                            <input type="submit" class="button-submit" value="确定">
+                                            <a th:if="${state eq 3}" th:href="@{/time/toPay(id=${id})}"><input type="button" class="button editNum" value="完成支付"></a>
+                                        </p>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

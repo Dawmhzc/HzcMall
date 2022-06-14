@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>商品添加</title>
+    <link href="../../static/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="../../static/assets/css/style1.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<header class="header style7">
+    <div class="top-bar" style="background-color: #0B2C5F">
+        <div class="container">
+            <div class="top-bar-left">
+            </div>
+            <div class="top-bar-right">
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <h2>商品添加界面</h2>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <label>商品名字</label>
+            <input id="goodsName" type="text" placeholder="商品名字" class="form-control">
+        </div>
+        <div class="form-group col-md-4">
+            <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">商品种类ID</font></font></label>
+            <input id="goodsCategoryId"type="text" placeholder="商品种类ID" class="form-control">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">商品原价</font></font></label>
+            <input id="originalPrice" type="text" placeholder="商品原价" class="form-control">
+        </div>
+        <div class="form-group col-md-2">
+            <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">商品现价</font></font></label>
+            <input id="sellingPrice" type="text" placeholder="商品现价" class="form-control">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">商品库存</font></font></label>
+            <input id="stockNum" type="text" placeholder="商品库存" class="form-control">
+        </div>
+        <div class="form-group col-md-4">
+            <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">商家ID</font></font></label>
+            <input id="createUser" type="text" placeholder="商家ID" class="form-control">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="form-group col-md-4">
+            <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">商品展示图片</font></font></label>
+            <input id="goodsImg" name="goodsImg" type="file" placeholder="商品展示图片" class="form-control">
+        </div>
+    </div>
+    <div class="mb-3">
+        <label><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">商品介绍</font></font></label>
+        <textarea id="goodsIntro" class="form-control"></textarea>
+    </div>
+    <button class="btn btn-primary" id="addGoods"> 保存 </button>
+</div>
+<script src="../../static/assets/js/jquery.min.js"></script>
+<script>
+    $("#addGoods").click(function (){
+        //实例化一个表单对象，用于保存数据
+        var formData = new FormData();
+        let goodsName=$("#goodsName").val();
+        let goodsCategoryId=$("#goodsCategoryId").val();
+        let goodsIntro=$("#goodsIntro").val();
+        let originalPrice=$("#originalPrice").val();
+        let sellingPrice=$("#sellingPrice").val();
+        let stockNum=$("#stockNum").val();
+        let createUser=$("#createUser").val();
+        formData.append('goodsImg', $('#goodsImg')[0].files[0]); //添加图片信息的参数
+        formData.append('goodsName', goodsName);
+        formData.append('goodsCategoryId', goodsCategoryId);
+        formData.append('goodsIntro', goodsIntro);
+        formData.append('originalPrice', originalPrice);
+        formData.append('sellingPrice', sellingPrice);
+        formData.append('stockNum', stockNum);
+        formData.append('createUser', createUser);
+
+        $.ajax({
+            type:"post",
+            url:"/admin/saveGoods",
+            data:formData,
+            cache: false, //上传文件不需要缓存
+            processData: false, // 告诉jQuery不要去处理发送的数据
+            contentType: false, // 告诉jQuery不要去设置Content-Type请求头
+            //dataType: "json",
+            success: function (data){
+                alert(data.message);
+            },
+            error: function (xhr){
+                alert(xhr.message);
+            }
+        });
+    });
+</script>
+</body>
+</html>
